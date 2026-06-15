@@ -804,47 +804,18 @@
     margin-top: 3rem;
   }
   .location-map {
-    background: var(--c-carbon);
     border: 1px solid var(--c-steel);
     aspect-ratio: 4/3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
   }
-  .map-placeholder {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-fog);
-    text-align: center;
-    z-index: 1;
-  }
-  .map-crosshair {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--c-red);
-    border-radius: 50%;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-  }
-  .map-crosshair::before, .map-crosshair::after {
-    content: '';
-    position: absolute;
-    background: var(--c-red);
-  }
-  .map-crosshair::before { width: 1px; height: 20px; top: -10px; left: 50%; }
-  .map-crosshair::after { width: 20px; height: 1px; left: -10px; top: 50%; }
-  .map-grid-lines {
+  .location-map iframe {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(232,52,28,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232,52,28,0.04) 1px, transparent 1px);
-    background-size: 30px 30px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: grayscale(0.4) contrast(0.9);
   }
   .location-info p {
     color: var(--c-silver);
@@ -1328,12 +1299,12 @@
   <h2 class="reveal">Estamos en<br><em>Granada</em></h2>
   <div class="location-layout">
     <div class="location-map reveal">
-      <div class="map-grid-lines"></div>
-      <div class="map-crosshair"></div>
-      <div class="map-placeholder">
-        <div style="font-size:0.7rem;margin-top:3.5rem">📍 Centro de Granada</div>
-        <div style="margin-top:0.5rem;color:var(--c-fog)">Local en búsqueda activa</div>
-      </div>
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-3.6136%2C37.1673%2C-3.5836%2C37.1873&layer=mapnik&marker=37.1773%2C-3.5986"
+        loading="lazy"
+        title="Mapa del centro de Granada"
+        allowfullscreen
+      ></iframe>
     </div>
     <div class="location-info reveal">
       <p>
