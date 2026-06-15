@@ -530,7 +530,7 @@
     top: 0; left: 0;
     height: 100%;
     background: var(--c-red);
-    animation: pulse-bar 2s ease-in-out infinite;
+    transition: width 0.12s linear;
   }
   .hud-bar-fill.cyan { background: var(--c-cyan); }
   @keyframes pulse-bar {
@@ -988,7 +988,7 @@
     <li><a href="#espacio">Espacio</a></li>
     <li><a href="#inversion">Inversión</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Reservar ahora</a>
+  <a href="#contacto" class="nav-cta" id="btn-reservar">Reservar ahora</a>
 </nav>
 
 <!-- HERO -->
@@ -1138,39 +1138,39 @@
             <span>▶ EN CARRERA</span>
           </div>
           <div class="hud-speed">
-            <div class="hud-speed-num" id="speed-display">247</div>
-            <div class="hud-speed-unit">KM/H</div>
+            <div class="hud-speed-num" id="hud-speed">000</div>
+            <div class="hud-speed-unit">KM/H · <span id="hud-rpm" style="color:var(--c-red)">0</span> RPM</div>
           </div>
           <div class="hud-bars">
             <div>
               <div class="hud-bar-label">ACELERADOR</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" style="width:87%"></div></div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-throttle" style="width:0%"></div></div>
             </div>
             <div>
               <div class="hud-bar-label">FRENADA</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" style="width:12%"></div></div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-brake" style="width:0%"></div></div>
             </div>
             <div>
               <div class="hud-bar-label">VOLANTE</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill cyan" style="width:58%"></div></div>
+              <div class="hud-bar-track"><div class="hud-bar-fill cyan" id="hud-steering" style="width:50%"></div></div>
             </div>
             <div>
               <div class="hud-bar-label">TEMP. NEUMÁTICO</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" style="width:73%"></div></div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-tire" style="width:0%"></div></div>
             </div>
           </div>
           <div class="hud-bottom">
             <div>
               <div style="color: var(--c-slate)">VUELTA</div>
-              <div style="color: var(--c-cyan)">1:42.847</div>
+              <div id="hud-lap" style="color: var(--c-cyan)">--:--.---</div>
             </div>
             <div style="text-align:center">
               <div style="color:var(--c-slate)">MARCHA</div>
-              <div class="hud-gear">5</div>
+              <div class="hud-gear" id="hud-gear">N</div>
             </div>
             <div style="text-align:right">
               <div style="color:var(--c-slate)">CIRCUITO</div>
-              <div style="color:var(--c-light)">SIERRA GR</div>
+              <div id="hud-circuit" style="color:var(--c-light)">—</div>
             </div>
           </div>
         </div>
@@ -1382,47 +1382,313 @@
   </div>
 </footer>
 
+<audio id="reservar-sound" src="reservar.mp3" preload="auto"></audio>
+
 <script>
+  // ── SONIDO RESERVAR ─────────────────────────────────────
+  document.getElementById('btn-reservar').addEventListener('click', () => {
+    const snd = document.getElementById('reservar-sound');
+    snd.currentTime = 0;
+    snd.play();
+  });
+
+  // ── CURSOR ──────────────────────────────────────────────
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0, rx = 0, ry = 0;
   document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
   function animateCursor() {
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.transform = 'translate(-50%,-50%) scale(2)';
-      ring.style.width = '60px';
-      ring.style.height = '60px';
+      ring.style.width = '60px'; ring.style.height = '60px';
       ring.style.borderColor = 'rgba(232,52,28,0.8)';
     });
     el.addEventListener('mouseleave', () => {
       cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
+      ring.style.width = '36px'; ring.style.height = '36px';
       ring.style.borderColor = 'rgba(232,52,28,0.5)';
     });
   });
 
+  // ── REVEAL ───────────────────────────────────────────────
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  let speed = 247;
-  setInterval(() => {
-    speed = Math.round(240 + Math.random() * 30);
-    const el = document.getElementById('speed-display');
-    if (el) el.textContent = speed;
-  }, 800);
+  // ── TELEMETRÍA EN TIEMPO REAL ────────────────────────────
+  // Sistema preparado para conectar a simuladores reales vía WebSocket.
+  // Compatible con SimHub, ACC broadcast, iRacing SDK o cualquier servidor
+  // personalizado que emita JSON con el formato:
+  //   { speed, rpm, gear, throttle (0-1), brake (0-1), steering (-1..1),
+  //     tireTemp, currentLap, bestLap, circuit }
+  // Mientras no haya conexión activa se muestra un modo DEMO realista
+  // (no aleatorio): una vuelta paramétrica con curvas, frenadas y rectas.
+
+  const HUD = {
+    speed:    document.getElementById('hud-speed'),
+    rpm:      document.getElementById('hud-rpm'),
+    throttle: document.getElementById('hud-throttle'),
+    brake:    document.getElementById('hud-brake'),
+    steering: document.getElementById('hud-steering'),
+    tire:     document.getElementById('hud-tire'),
+    lap:      document.getElementById('hud-lap'),
+    gear:     document.getElementById('hud-gear'),
+    circuit:  document.getElementById('hud-circuit'),
+  };
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function fmtLap(t) {
+    if (typeof t !== 'number') return t || '--:--.---';
+    const m = Math.floor(t / 60);
+    const s = (t - m * 60).toFixed(3);
+    return `${m}:${s.padStart(6, '0')}`;
+  }
+
+  function updateHUD(d) {
+    if (!d) return;
+    if (HUD.speed && d.speed != null)       HUD.speed.textContent    = String(Math.round(d.speed)).padStart(3, '0');
+    if (HUD.rpm && d.rpm != null)           HUD.rpm.textContent      = Math.round(d.rpm);
+    if (HUD.throttle && d.throttle != null) HUD.throttle.style.width = clamp(d.throttle * 100, 0, 100) + '%';
+    if (HUD.brake && d.brake != null)       HUD.brake.style.width    = clamp(d.brake * 100, 0, 100) + '%';
+    if (HUD.steering && d.steering != null) HUD.steering.style.width = clamp((d.steering + 1) / 2 * 100, 0, 100) + '%';
+    if (HUD.tire && d.tireTemp != null)     HUD.tire.style.width     = clamp(d.tireTemp, 0, 100) + '%';
+    if (HUD.lap && d.currentLap != null)    HUD.lap.textContent      = fmtLap(d.currentLap);
+    if (HUD.gear && d.gear != null)         HUD.gear.textContent     = d.gear === 0 ? 'N' : (d.gear === -1 ? 'R' : d.gear);
+    if (HUD.circuit && d.circuit != null)   HUD.circuit.textContent  = d.circuit;
+  }
+
+  // ── MODO DEMO: simulación paramétrica de una vuelta ──────
+  // Segmentos representan una vuelta real: rectas, frenadas, curvas, salidas.
+  const demoLap = [
+    { dur: 6.0, speed: 280, rpm: 7200, throttle: 1.00, brake: 0.00, gear: 6, steering:  0.00 },
+    { dur: 1.4, speed: 110, rpm: 4500, throttle: 0.00, brake: 0.95, gear: 3, steering: -0.55 },
+    { dur: 3.5, speed: 130, rpm: 5800, throttle: 0.60, brake: 0.00, gear: 3, steering: -0.70 },
+    { dur: 4.5, speed: 220, rpm: 6800, throttle: 0.95, brake: 0.00, gear: 5, steering:  0.10 },
+    { dur: 1.2, speed:  90, rpm: 3500, throttle: 0.00, brake: 0.92, gear: 2, steering:  0.65 },
+    { dur: 3.0, speed: 100, rpm: 5200, throttle: 0.72, brake: 0.00, gear: 2, steering:  0.80 },
+    { dur: 4.0, speed: 200, rpm: 6500, throttle: 0.95, brake: 0.00, gear: 5, steering:  0.00 },
+    { dur: 5.0, speed: 260, rpm: 7000, throttle: 1.00, brake: 0.00, gear: 6, steering:  0.00 },
+  ];
+  const DEMO_TOTAL = demoLap.reduce((s, x) => s + x.dur, 0);
+
+  function demoState(t) {
+    const cycle = t % DEMO_TOTAL;
+    let acc = 0;
+    for (let i = 0; i < demoLap.length; i++) {
+      const s = demoLap[i];
+      if (cycle < acc + s.dur) {
+        const next = demoLap[(i + 1) % demoLap.length];
+        const u = (cycle - acc) / s.dur;
+        const k = u < 0.5 ? 2*u*u : -1 + (4 - 2*u) * u; // ease in-out
+        const lerp = (a, b) => a + (b - a) * k;
+        return {
+          speed:    lerp(s.speed,    next.speed),
+          rpm:      lerp(s.rpm,      next.rpm),
+          throttle: lerp(s.throttle, next.throttle),
+          brake:    lerp(s.brake,    next.brake),
+          steering: lerp(s.steering, next.steering),
+          tireTemp: 60 + Math.sin(t * 0.25) * 8 + (s.brake > 0.5 ? 18 : 0),
+          gear: s.gear,
+          currentLap: cycle,
+          circuit: 'SIERRA GR · DEMO',
+        };
+      }
+      acc += s.dur;
+    }
+    return null;
+  }
+
+  // ── ESTADO DE CONEXIÓN ──────────────────────────────────
+  let ws = null;
+  let conn = 'demo'; // 'demo' | 'connecting' | 'live' | 'error'
+  let demoT = 0;
+  let lastTick = performance.now();
+
+  function tick(now) {
+    const dt = (now - lastTick) / 1000;
+    lastTick = now;
+    if (conn !== 'live') {
+      demoT += dt;
+      updateHUD(demoState(demoT));
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // ── CONEXIÓN WEBSOCKET ──────────────────────────────────
+  function setConn(state) {
+    conn = state;
+    const dot = document.getElementById('tele-dot');
+    const lbl = document.getElementById('tele-label');
+    if (!dot || !lbl) return;
+    const map = {
+      demo:       { c: '#f59e0b', t: 'DEMO' },
+      connecting: { c: '#22d3ee', t: 'CONECTANDO…' },
+      live:       { c: '#10b981', t: '● EN VIVO' },
+      error:      { c: '#e8341c', t: 'SIN CONEXIÓN' },
+    };
+    const v = map[state];
+    dot.style.background = v.c;
+    dot.style.boxShadow = `0 0 8px ${v.c}`;
+    lbl.style.color = v.c;
+    lbl.textContent = v.t;
+  }
+
+  function connect(url) {
+    if (ws) { try { ws.close(); } catch(e){} ws = null; }
+    setConn('connecting');
+    try {
+      ws = new WebSocket(url);
+      const timeout = setTimeout(() => {
+        if (ws && ws.readyState !== WebSocket.OPEN) {
+          try { ws.close(); } catch(e){}
+          setConn('error');
+        }
+      }, 5000);
+      ws.onopen = () => { clearTimeout(timeout); setConn('live'); };
+      ws.onmessage = (msg) => {
+        try {
+          const data = JSON.parse(msg.data);
+          // Compatibilidad: SimHub usa nombres como SpeedKmh, Rpms, Gear...
+          // Normalizamos campos comunes.
+          updateHUD({
+            speed:      data.speed      ?? data.SpeedKmh      ?? data.Speed,
+            rpm:        data.rpm        ?? data.Rpms          ?? data.RPM,
+            gear:       data.gear       ?? data.Gear,
+            throttle:   data.throttle   ?? data.Throttle,
+            brake:      data.brake      ?? data.Brake,
+            steering:   data.steering   ?? data.Steering,
+            tireTemp:   data.tireTemp   ?? data.TireTemp,
+            currentLap: data.currentLap ?? data.CurrentLapTime,
+            circuit:    data.circuit    ?? data.TrackName,
+          });
+        } catch (e) { /* payload no JSON, ignorar */ }
+      };
+      ws.onerror = () => { clearTimeout(timeout); setConn('error'); };
+      ws.onclose = () => {
+        clearTimeout(timeout);
+        if (conn === 'live') setConn('demo');
+        ws = null;
+      };
+    } catch (e) {
+      setConn('error');
+    }
+  }
+
+  function disconnect() {
+    if (ws) { try { ws.close(); } catch(e){} ws = null; }
+    setConn('demo');
+  }
+
+  // ── PANEL DE TELEMETRÍA (esquina inferior derecha) ───────
+  const panel = document.createElement('button');
+  panel.id = 'telemetry-panel';
+  panel.innerHTML = `
+    <span id="tele-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></span>
+    <span id="tele-label" style="color:#f59e0b;">DEMO</span>
+    <span style="color:#6b7280">· TELEMETRÍA</span>
+  `;
+  panel.style.cssText = `
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: rgba(9,9,9,0.92); color: #e8eaed;
+    border: 1px solid #1a1d20; padding: 0.65rem 1rem;
+    cursor: none; display: flex; align-items: center; gap: 0.55rem;
+    transition: border-color 0.2s;
+  `;
+  panel.addEventListener('mouseenter', () => panel.style.borderColor = '#e8341c');
+  panel.addEventListener('mouseleave', () => panel.style.borderColor = '#1a1d20');
+  panel.addEventListener('click', openModal);
+  document.body.appendChild(panel);
+
+  // ── MODAL DE CONFIGURACIÓN ───────────────────────────────
+  function openModal() {
+    if (document.getElementById('tele-modal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'tele-modal';
+    modal.style.cssText = `
+      position: fixed; inset: 0; z-index: 1000; cursor: none;
+      background: rgba(9,9,9,0.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+    `;
+    const savedUrl = (typeof localStorage !== 'undefined' && localStorage.getItem('apex-tele-url')) || 'ws://localhost:8765/telemetry';
+    modal.innerHTML = `
+      <div style="background:#111213;border:1px solid #1a1d20;padding:2.5rem;max-width:520px;width:90%;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:#e8341c;text-transform:uppercase;margin-bottom:0.5rem;">— Telemetría en tiempo real</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:0.05em;color:#f5f5f3;margin-bottom:1.2rem;line-height:1;">Conectar simulador</h3>
+        <p style="color:#9ca3af;font-size:0.92rem;line-height:1.7;margin-bottom:1.5rem;font-family:'Crimson Pro',serif;">
+          Introduce la URL del servidor WebSocket de telemetría. Compatible con <strong style="color:#e8eaed">SimHub</strong>, plugins broadcast de <strong style="color:#e8eaed">ACC</strong>, puentes para <strong style="color:#e8eaed">iRacing</strong> o servidores propios.
+        </p>
+        <label style="display:block;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;color:#6b7280;text-transform:uppercase;margin-bottom:0.5rem;">URL WebSocket</label>
+        <input id="tele-url" type="text" value="${savedUrl}" placeholder="ws://localhost:8765/telemetry" style="
+          width:100%;background:#090909;border:1px solid #1a1d20;color:#f5f5f3;
+          padding:0.85rem 1rem;font-family:'Space Mono',monospace;font-size:0.82rem;
+          margin-bottom:1rem;outline:none;cursor:none;
+        ">
+        <div style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.12em;color:#6b7280;text-transform:uppercase;margin-bottom:0.6rem;">Preajustes rápidos</div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.8rem;">
+          <button class="tele-preset" data-url="ws://localhost:8765/telemetry" style="
+            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
+            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
+          ">Custom local</button>
+          <button class="tele-preset" data-url="ws://localhost:8888/api/v2/ws" style="
+            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
+            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
+          ">SimHub</button>
+          <button class="tele-preset" data-url="ws://localhost:4000/iracing" style="
+            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
+            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
+          ">iRacing bridge</button>
+        </div>
+        <div style="display:flex;gap:0.8rem;justify-content:flex-end;">
+          <button id="tele-cancel" style="
+            font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;
+            background:transparent;color:#9ca3af;border:1px solid #1a1d20;padding:0.85rem 1.4rem;cursor:none;text-transform:uppercase;
+          ">${conn === 'live' ? 'Desconectar' : 'Cancelar'}</button>
+          <button id="tele-connect" style="
+            font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;
+            background:#e8341c;color:#fff;border:none;padding:0.85rem 1.8rem;cursor:none;text-transform:uppercase;
+          ">Conectar</button>
+        </div>
+        <div style="margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid #1a1d20;font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.1em;color:#3a3f47;line-height:1.7;text-transform:uppercase;">
+          JSON esperado: { speed · rpm · gear · throttle (0–1) · brake (0–1) · steering (−1 a 1) · tireTemp (0–100) · currentLap · circuit }
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelectorAll('.tele-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('tele-url').value = btn.dataset.url;
+      });
+    });
+    modal.querySelector('#tele-cancel').addEventListener('click', () => {
+      if (conn === 'live') disconnect();
+      modal.remove();
+    });
+    modal.querySelector('#tele-connect').addEventListener('click', () => {
+      const url = document.getElementById('tele-url').value.trim();
+      if (!url) return;
+      try { if (typeof localStorage !== 'undefined') localStorage.setItem('apex-tele-url', url); } catch(e){}
+      connect(url);
+      modal.remove();
+    });
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.remove();
+    });
+    document.addEventListener('keydown', function esc(e){
+      if (e.key === 'Escape') { modal.remove(); document.removeEventListener('keydown', esc); }
+    });
+  }
 </script>
 </body>
 </html>
