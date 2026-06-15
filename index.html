@@ -1126,8 +1126,8 @@
               <div class="hud-bar-track"><div class="hud-bar-fill cyan" id="hud-steering" style="width:50%"></div></div>
             </div>
             <div>
-              <div class="hud-bar-label">TEMP. NEUMÁTICO</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-tire" style="width:0%"></div></div>
+              <div class="hud-bar-label">EMBRAGUE</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-clutch" style="width:0%"></div></div>
             </div>
           </div>
           <div class="hud-bottom">
@@ -1410,7 +1410,7 @@
     throttle: document.getElementById('hud-throttle'),
     brake:    document.getElementById('hud-brake'),
     steering: document.getElementById('hud-steering'),
-    tire:     document.getElementById('hud-tire'),
+    clutch:   document.getElementById('hud-clutch'),
     lap:      document.getElementById('hud-lap'),
     gear:     document.getElementById('hud-gear'),
     circuit:  document.getElementById('hud-circuit'),
@@ -1431,7 +1431,7 @@
     if (HUD.throttle && d.throttle != null) HUD.throttle.style.width = clamp(d.throttle * 100, 0, 100) + '%';
     if (HUD.brake && d.brake != null)       HUD.brake.style.width    = clamp(d.brake * 100, 0, 100) + '%';
     if (HUD.steering && d.steering != null) HUD.steering.style.width = clamp((d.steering + 1) / 2 * 100, 0, 100) + '%';
-    if (HUD.tire && d.tireTemp != null)     HUD.tire.style.width     = clamp(d.tireTemp, 0, 100) + '%';
+    if (HUD.clutch && d.clutch != null)     HUD.clutch.style.width   = clamp(d.clutch * 100, 0, 100) + '%';
     if (HUD.lap && d.currentLap != null)    HUD.lap.textContent      = fmtLap(d.currentLap);
     if (HUD.gear && d.gear != null)         HUD.gear.textContent     = d.gear === 0 ? 'N' : (d.gear === -1 ? 'R' : d.gear);
     if (HUD.circuit && d.circuit != null)   HUD.circuit.textContent  = d.circuit;
@@ -1449,6 +1449,7 @@
     { dur: 4.0, speed: 200, rpm: 6500, throttle: 0.95, brake: 0.00, gear: 5, steering:  0.00 },
     { dur: 5.0, speed: 260, rpm: 7000, throttle: 1.00, brake: 0.00, gear: 6, steering:  0.00 },
   ];
+  const SHIFT_WINDOW = 0.13; // segundos que dura el embrague en cada cambio
   const DEMO_TOTAL = demoLap.reduce((s, x) => s + x.dur, 0);
 
   function demoState(t) {
@@ -1461,13 +1462,18 @@
         const u = (cycle - acc) / s.dur;
         const k = u < 0.5 ? 2*u*u : -1 + (4 - 2*u) * u; // ease in-out
         const lerp = (a, b) => a + (b - a) * k;
+        const timeInSeg = cycle - acc;
+        const timeToEnd = s.dur - timeInSeg;
+        const prev = demoLap[(i - 1 + demoLap.length) % demoLap.length];
+        const clutch = (prev.gear !== s.gear && timeInSeg < SHIFT_WINDOW) ||
+                       (s.gear !== next.gear && timeToEnd < SHIFT_WINDOW) ? 1 : 0;
         return {
           speed:    lerp(s.speed,    next.speed),
           rpm:      lerp(s.rpm,      next.rpm),
           throttle: lerp(s.throttle, next.throttle),
           brake:    lerp(s.brake,    next.brake),
           steering: lerp(s.steering, next.steering),
-          tireTemp: 60 + Math.sin(t * 0.25) * 8 + (s.brake > 0.5 ? 18 : 0),
+          clutch,
           gear: s.gear,
           currentLap: cycle,
           circuit: 'SIERRA GR · DEMO',
@@ -1538,7 +1544,7 @@
             throttle:   data.throttle   ?? data.Throttle,
             brake:      data.brake      ?? data.Brake,
             steering:   data.steering   ?? data.Steering,
-            tireTemp:   data.tireTemp   ?? data.TireTemp,
+            clutch:     data.clutch     ?? data.Clutch,
             currentLap: data.currentLap ?? data.CurrentLapTime,
             circuit:    data.circuit    ?? data.TrackName,
           });
@@ -1632,7 +1638,7 @@
           ">Conectar</button>
         </div>
         <div style="margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid #1a1d20;font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.1em;color:#3a3f47;line-height:1.7;text-transform:uppercase;">
-          JSON esperado: { speed · rpm · gear · throttle (0–1) · brake (0–1) · steering (−1 a 1) · tireTemp (0–100) · currentLap · circuit }
+          JSON esperado: { speed · rpm · gear · throttle (0–1) · brake (0–1) · steering (−1 a 1) · clutch (0–1) · currentLap · circuit }
         </div>
       </div>
     `;
