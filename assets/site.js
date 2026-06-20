@@ -147,7 +147,8 @@
           body: new FormData(form),
           headers: { Accept: 'application/json' },
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (res.ok && data.success) {
           form.reset();
           showStatus('ok', '¡Solicitud enviada! Te contactaremos para confirmar tu reserva.');
         } else {
