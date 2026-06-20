@@ -63,21 +63,21 @@
       <div class="form-row">
         <div class="form-field">
           <label for="f-nombre">Nombre y apellidos</label>
-          <input id="f-nombre" name="nombre" type="text" required placeholder="Tu nombre">
+          <input id="f-nombre" name="nombre" type="text" required placeholder="Tu nombre" autocomplete="name">
         </div>
         <div class="form-field">
           <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" required placeholder="tucorreo@email.com">
+          <input id="f-email" name="email" type="email" required placeholder="tucorreo@email.com" autocomplete="email">
         </div>
       </div>
       <div class="form-row">
         <div class="form-field">
           <label for="f-telefono">Teléfono</label>
-          <input id="f-telefono" name="telefono" type="tel" placeholder="+34 ...">
+          <input id="f-telefono" name="telefono" type="tel" placeholder="+34 ..." autocomplete="tel">
         </div>
         <div class="form-field">
           <label for="f-tipo">Tipo de reserva</label>
-          <select id="f-tipo" name="tipo">
+          <select id="f-tipo" name="tipo" autocomplete="off">
             <option value="gaming">Gaming (PC / consola)</option>
             <option value="simracing">Simracing</option>
             <option value="cumpleanos">Cumpleaños</option>
@@ -88,16 +88,16 @@
       <div class="form-row">
         <div class="form-field">
           <label for="f-fecha">Fecha preferida</label>
-          <input id="f-fecha" name="fecha" type="date">
+          <input id="f-fecha" name="fecha" type="date" autocomplete="off">
         </div>
         <div class="form-field">
           <label for="f-personas">Nº de personas</label>
-          <input id="f-personas" name="personas" type="number" min="1" value="1">
+          <input id="f-personas" name="personas" type="number" min="1" value="1" autocomplete="off">
         </div>
       </div>
       <div class="form-field">
         <label for="f-mensaje">Mensaje (opcional)</label>
-        <textarea id="f-mensaje" name="mensaje" placeholder="Cuéntanos lo que necesites: horario, edades del grupo, dudas..."></textarea>
+        <textarea id="f-mensaje" name="mensaje" placeholder="Cuéntanos lo que necesites: horario, edades del grupo, dudas..." autocomplete="off"></textarea>
       </div>
       <button type="submit" class="btn-primary">Enviar solicitud</button>
       <p class="form-note">
