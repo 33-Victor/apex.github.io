@@ -98,7 +98,7 @@
     });
   });
 
-  // ── FORMULARIO DE RESERVA (Formspree + fallback mailto) ─
+  // ── FORMULARIO DE RESERVA (FormSubmit POST nativo + fallback mailto) ─
   const form = document.getElementById('reserva-form');
   if (form) {
     // Prerrellenar el "tipo" desde la URL: reservar.html?tipo=cumpleanos
