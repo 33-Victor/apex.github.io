@@ -132,32 +132,17 @@
         '&body=' + encodeURIComponent(body);
     };
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form.addEventListener('submit', (e) => {
       const action = form.getAttribute('action') || '';
-      // Sin endpoint configurado todavía → abrir cliente de correo
+      // POST nativo para FormSubmit (gestiona la redirección él solo)
+      if (action.includes('formsubmit.co') && !action.includes('/ajax/')) return;
+      e.preventDefault();
       if (!action || action.indexOf('your_form_id') !== -1) {
         showStatus('ok', 'Abriendo tu cliente de correo para enviar la solicitud…');
         mailtoFallback();
         return;
       }
-      try {
-        const res = await fetch(action, {
-          method: 'POST',
-          body: JSON.stringify(Object.fromEntries(new FormData(form))),
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          form.reset();
-          showStatus('ok', '¡Solicitud enviada! Te contactaremos para confirmar tu reserva.');
-        } else {
-          showStatus('err', 'No se pudo enviar. Inténtalo de nuevo o escríbenos a ' + fallbackEmail + '.');
-        }
-      } catch (err) {
-        showStatus('err', 'Sin conexión con el servidor. Abrimos tu correo como alternativa…');
-        mailtoFallback();
-      }
+      showStatus('ok', '¡Solicitud enviada! Te contactaremos para confirmar tu reserva.');
     });
   }
 
