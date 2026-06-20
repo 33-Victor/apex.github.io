@@ -3,947 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX Granada — Simracing & Maker Space</title>
+<title>APEX Granada — Gaming, Simracing & Maker Space</title>
+<meta name="description" content="APEX Granada: centro de gaming de alta gama, simracing profesional y maker space en el centro de Granada. Gaming sin límites. Reserva tu plaza.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3Ctext x='16' y='24' font-family='Arial,sans-serif' font-size='22' font-weight='bold' fill='%23e8341c' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="APEX Granada — Gaming, Simracing & Maker Space">
+<meta property="og:description" content="Centro de gaming, simracing profesional y maker space en el centro de Granada. Gaming sin límites.">
+<meta property="og:image" content="viper.png">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --c-void: #090909;
-    --c-carbon: #111213;
-    --c-steel: #1a1d20;
-    --c-chrome: #252930;
-    --c-fog: #3a3f47;
-    --c-slate: #6b7280;
-    --c-silver: #9ca3af;
-    --c-light: #e8eaed;
-    --c-white: #f5f5f3;
-    --c-red: #e8341c;
-    --c-red-glow: #ff4422;
-    --c-amber: #f59e0b;
-    --c-cyan: #22d3ee;
-    --c-green: #10b981;
-    --accent: var(--c-red);
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-    --font-body: 'Crimson Pro', serif;
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--c-void);
-    color: var(--c-light);
-    font-family: var(--font-body);
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: var(--c-red);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, background 0.2s;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(232,52,28,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, width 0.2s, height 0.2s, border-color 0.2s;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    background: rgba(9,9,9,0.85);
-    backdrop-filter: blur(12px);
-  }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    letter-spacing: 0.1em;
-    color: var(--c-white);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--c-red); }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-slate);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--c-white); }
-  .nav-cta {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--c-red);
-    color: var(--c-white);
-    border: none;
-    padding: 0.6rem 1.4rem;
-    cursor: none;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--c-red-glow); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 7rem 3rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(232,52,28,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 30% 40% at 20% 80%, rgba(34,211,238,0.04) 0%, transparent 60%);
-  }
-  .hero-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
-  .hero-left {
-    position: relative;
-    z-index: 2;
-  }
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-red);
-    margin-bottom: 1.5rem;
-  }
-  .hero-tag::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 1px;
-    background: var(--c-red);
-  }
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 9vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
-    color: var(--c-white);
-    margin-bottom: 0.15em;
-  }
-  h1 .line-red { color: var(--c-red); }
-  h1 .line-sub {
-    font-size: clamp(1.8rem, 3vw, 3rem);
-    color: var(--c-slate);
-    display: block;
-    letter-spacing: 0.08em;
-    margin-top: 0.2em;
-  }
-  .hero-desc {
-    font-family: var(--font-body);
-    font-size: 1.15rem;
-    color: var(--c-silver);
-    max-width: 440px;
-    margin: 1.8rem 0 2.5rem;
-    line-height: 1.8;
-  }
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  .btn-primary {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    background: var(--c-red);
-    color: var(--c-white);
-    padding: 1rem 2rem;
-    text-decoration: none;
-    transition: background 0.2s;
-    cursor: none;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--c-red-glow); }
-  .btn-secondary {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--c-slate);
-    text-decoration: none;
-    border-bottom: 1px solid var(--c-fog);
-    padding-bottom: 2px;
-    cursor: none;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .btn-secondary:hover { color: var(--c-white); border-color: var(--c-silver); }
-
-  .hero-right {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-  }
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--c-steel);
-    border: 1px solid var(--c-steel);
-    max-width: 400px;
-    width: 100%;
-  }
-  .stat-box {
-    background: var(--c-carbon);
-    padding: 2rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .stat-box::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--c-red);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .stat-box:hover::before { opacity: 1; }
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    color: var(--c-white);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .stat-number span { color: var(--c-red); }
-  .stat-label {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-slate);
-  }
-  .hero-location {
-    margin-top: 2rem;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--c-fog);
-    text-transform: uppercase;
-    text-align: center;
-  }
-
-  /* TICKER */
-  .ticker {
-    background: var(--c-red);
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 0.6rem 0;
-  }
-  .ticker-inner {
-    display: inline-block;
-    animation: ticker 20s linear infinite;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.9);
-  }
-  .ticker-inner span { margin: 0 2rem; opacity: 0.5; }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* SECTIONS */
-  section { padding: 7rem 3rem; position: relative; }
-  .section-tag {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--c-red);
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-  .section-tag::after {
-    content: '';
-    display: inline-block;
-    flex: 1;
-    max-width: 40px;
-    height: 1px;
-    background: var(--c-red);
-  }
-  h2 {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 5vw, 5.5rem);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    color: var(--c-white);
-    margin-bottom: 1.5rem;
-  }
-  h2 em { font-style: normal; color: var(--c-red); }
-  h3 {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    letter-spacing: 0.05em;
-    color: var(--c-white);
-    margin-bottom: 0.75rem;
-  }
-
-  /* SERVICES */
-  .services { background: var(--c-carbon); }
-  .services-intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 5rem;
-  }
-  .services-intro p {
-    color: var(--c-silver);
-    font-size: 1.1rem;
-    line-height: 1.9;
-  }
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--c-steel);
-    border: 1px solid var(--c-steel);
-  }
-  .service-card {
-    background: var(--c-void);
-    padding: 3rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-  }
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--c-red);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.65,0,0.35,1);
-  }
-  .service-card:hover::after { transform: scaleX(1); }
-  .service-card:hover { background: var(--c-carbon); }
-  .service-num {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--c-red);
-    margin-bottom: 2rem;
-  }
-  .service-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-  .service-card p {
-    color: var(--c-slate);
-    font-size: 0.95rem;
-    line-height: 1.8;
-    margin-top: 0.8rem;
-  }
-  .service-specs {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--c-steel);
-  }
-  .service-spec {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    color: var(--c-fog);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-  }
-  .service-spec::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 4px;
-    background: var(--c-red);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* SIMRACING */
-  .simracing {
-    background: var(--c-void);
-    overflow: hidden;
-  }
-  .sim-layout {
-    display: grid;
-    grid-template-columns: 5fr 4fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .sim-features {
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--c-steel);
-    border: 1px solid var(--c-steel);
-  }
-  .sim-feature {
-    background: var(--c-carbon);
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    transition: background 0.2s;
-  }
-  .sim-feature:hover { background: var(--c-steel); }
-  .sim-feature-num {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--c-red);
-    min-width: 2rem;
-    padding-top: 0.2rem;
-  }
-  .sim-feature-content h4 {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--c-light);
-    margin-bottom: 0.3rem;
-  }
-  .sim-feature-content p {
-    font-size: 0.92rem;
-    color: var(--c-slate);
-    line-height: 1.6;
-  }
-  .sim-visual {
-    position: relative;
-  }
-  .sim-cockpit-art {
-    background: var(--c-carbon);
-    border: 1px solid var(--c-steel);
-    padding: 3rem 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .cockpit-hud {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .hud-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    color: var(--c-fog);
-  }
-  .hud-speed {
-    text-align: center;
-    margin: 1rem 0;
-  }
-  .hud-speed-num {
-    font-family: var(--font-display);
-    font-size: 5.5rem;
-    color: var(--c-white);
-    line-height: 1;
-  }
-  .hud-speed-unit {
-    color: var(--c-slate);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-  }
-  .hud-bars {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 2rem 0;
-  }
-  .hud-bar-label {
-    color: var(--c-slate);
-    margin-bottom: 0.4rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-  }
-  .hud-bar-track {
-    height: 4px;
-    background: var(--c-steel);
-    position: relative;
-  }
-  .hud-bar-fill {
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%;
-    background: var(--c-red);
-    transition: width 0.12s linear;
-  }
-  .hud-bar-fill.cyan { background: var(--c-cyan); }
-  @keyframes pulse-bar {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-  .hud-bottom {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--c-steel);
-    color: var(--c-fog);
-  }
-  .hud-gear {
-    color: var(--c-amber);
-    font-family: var(--font-display);
-    font-size: 2rem;
-  }
-  .racing-line-accent {
-    position: absolute;
-    top: -20px; right: -20px;
-    width: 80px;
-    height: 80px;
-    border: 2px solid var(--c-red);
-    border-radius: 0;
-    opacity: 0.3;
-  }
-
-  /* PRINTING */
-  .printing { background: var(--c-carbon); }
-  .print-layout {
-    display: grid;
-    grid-template-columns: 4fr 5fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .print-machines {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .machine-card {
-    border: 1px solid var(--c-steel);
-    padding: 1.5rem 2rem;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1.5rem;
-    align-items: center;
-    background: var(--c-void);
-    transition: border-color 0.2s;
-  }
-  .machine-card:hover { border-color: var(--c-red); }
-  .machine-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--c-green);
-    box-shadow: 0 0 6px var(--c-green);
-    animation: blink 2s ease-in-out infinite;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  .machine-dot.amber { background: var(--c-amber); box-shadow: 0 0 6px var(--c-amber); }
-  .machine-info h4 {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--c-light);
-    margin-bottom: 0.2rem;
-  }
-  .machine-info p {
-    font-size: 0.85rem;
-    color: var(--c-slate);
-  }
-  .machine-status {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--c-green);
-  }
-  .machine-status.amber { color: var(--c-amber); }
-  .print-services {
-    margin-top: 1.5rem;
-  }
-  .print-services p {
-    color: var(--c-silver);
-    font-size: 1.05rem;
-    line-height: 1.85;
-    margin-bottom: 1.5rem;
-  }
-  .print-use-cases {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-  }
-  .use-case {
-    background: var(--c-steel);
-    padding: 1rem 1.2rem;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--c-silver);
-    border-left: 2px solid var(--c-red);
-  }
-
-  /* SPACE */
-  .space-section { background: var(--c-void); }
-  .floorplan {
-    margin-top: 4rem;
-    border: 1px solid var(--c-steel);
-    padding: 3rem;
-    position: relative;
-    background: var(--c-carbon);
-  }
-  .floorplan-grid {
-    display: grid;
-    grid-template-columns: 2fr 3fr 2fr;
-    grid-template-rows: auto auto;
-    gap: 1px;
-    background: var(--c-steel);
-    border: 1px solid var(--c-steel);
-    min-height: 320px;
-  }
-  .zone {
-    padding: 2rem 1.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 140px;
-  }
-  .zone-entry {
-    background: rgba(232,52,28,0.06);
-    grid-row: 1 / 3;
-  }
-  .zone-gaming { background: rgba(9,9,9,0.9); }
-  .zone-racing { background: rgba(34,211,238,0.04); }
-  .zone-print {
-    background: rgba(16,185,129,0.04);
-    grid-row: 1 / 3;
-  }
-  .zone-label {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-red);
-    margin-bottom: 0.5rem;
-  }
-  .zone-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-    color: var(--c-white);
-  }
-  .zone-m2 {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: var(--c-fog);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    align-self: flex-end;
-  }
-  .zone-icon {
-    font-size: 1.8rem;
-    opacity: 0.3;
-    position: absolute;
-    right: 1.5rem;
-    bottom: 1.5rem;
-  }
-  .floorplan-note {
-    margin-top: 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    color: var(--c-fog);
-    text-transform: uppercase;
-    text-align: center;
-  }
-
-  /* BUDGET */
-  .budget-section { background: var(--c-carbon); }
-  .budget-table {
-    margin-top: 3rem;
-    border: 1px solid var(--c-steel);
-    overflow: hidden;
-  }
-  .budget-header {
-    display: grid;
-    grid-template-columns: 2fr 3fr 1fr;
-    padding: 1rem 2rem;
-    background: var(--c-steel);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-slate);
-  }
-  .budget-row {
-    display: grid;
-    grid-template-columns: 2fr 3fr 1fr;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--c-steel);
-    transition: background 0.2s;
-  }
-  .budget-row:hover { background: var(--c-void); }
-  .budget-row:last-of-type { border-bottom: none; }
-  .budget-concept {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--c-light);
-  }
-  .budget-detail {
-    font-size: 0.9rem;
-    color: var(--c-slate);
-    padding-right: 1rem;
-  }
-  .budget-cost {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    color: var(--c-red);
-    text-align: right;
-  }
-  .budget-total {
-    display: grid;
-    grid-template-columns: 2fr 3fr 1fr;
-    padding: 2rem;
-    background: var(--c-void);
-    border-top: 2px solid var(--c-red);
-  }
-  .budget-total-label {
-    grid-column: 1 / 3;
-    font-family: var(--font-display);
-    font-size: 2rem;
-    letter-spacing: 0.1em;
-    color: var(--c-white);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .budget-total-label::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 2px;
-    background: var(--c-red);
-  }
-  .budget-total-num {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--c-red);
-    text-align: right;
-  }
-
-  /* LOCATION */
-  .location-section { background: var(--c-void); }
-  .location-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-    margin-top: 3rem;
-  }
-  .location-map {
-    border: 1px solid var(--c-steel);
-    aspect-ratio: 4/3;
-    position: relative;
-    overflow: hidden;
-  }
-  .location-map iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    filter: invert(90%) hue-rotate(180deg) brightness(0.85) contrast(0.9);
-  }
-  .location-info p {
-    color: var(--c-silver);
-    font-size: 1.05rem;
-    line-height: 1.85;
-    margin-bottom: 1.5rem;
-  }
-  .contact-items {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  .contact-item {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: var(--c-carbon);
-    border: 1px solid var(--c-steel);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    transition: border-color 0.2s;
-  }
-  .contact-item:hover { border-color: var(--c-red); }
-  .contact-item-label { color: var(--c-slate); text-transform: uppercase; }
-  .contact-item-val { color: var(--c-light); }
-
-  /* CTA SECTION */
-  .cta-section {
-    background: var(--c-red);
-    padding: 7rem 3rem;
-    text-align: center;
-  }
-  .cta-section h2 {
-    color: var(--c-white);
-    font-size: clamp(3.5rem, 6vw, 7rem);
-  }
-  .cta-section p {
-    color: rgba(255,255,255,0.8);
-    font-size: 1.15rem;
-    max-width: 500px;
-    margin: 1.5rem auto 3rem;
-  }
-  .btn-white {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: var(--c-white);
-    color: var(--c-red);
-    padding: 1rem 2.5rem;
-    text-decoration: none;
-    cursor: none;
-    transition: background 0.2s;
-    display: inline-block;
-  }
-  .btn-white:hover { background: #fff; }
-
-  /* FOOTER */
-  footer {
-    background: var(--c-void);
-    border-top: 1px solid var(--c-steel);
-    padding: 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-logo {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    letter-spacing: 0.1em;
-    color: var(--c-white);
-  }
-  .footer-logo span { color: var(--c-red); }
-  footer p {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-fog);
-  }
-  .footer-social {
-    display: flex;
-    gap: 1.5rem;
-  }
-  .footer-social a {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-fog);
-    text-decoration: none;
-    cursor: none;
-    transition: color 0.2s;
-  }
-  .footer-social a:hover { color: var(--c-red); }
-
-  /* REVEAL ANIMATION */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 4rem; gap: 3rem; }
-    section { padding: 5rem 1.5rem; }
-    .services-intro { grid-template-columns: 1fr; gap: 1.5rem; }
-    .service-grid { grid-template-columns: 1fr; }
-    .sim-layout { grid-template-columns: 1fr; gap: 3rem; }
-    .print-layout { grid-template-columns: 1fr; gap: 3rem; }
-    .floorplan-grid { grid-template-columns: 1fr 1fr; }
-    .zone-entry, .zone-print { grid-row: auto; }
-    .budget-header, .budget-row, .budget-total { grid-template-columns: 1fr 1fr; }
-    .budget-detail { display: none; }
-    .budget-total-label { grid-column: 1; }
-    .location-layout { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-  }
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
@@ -951,15 +23,18 @@
 <div class="cursor-ring" id="cursor-ring"></div>
 
 <nav>
-  <a href="#" class="nav-logo">APEX<span>.</span>GR</a>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#simracing">Simracing</a></li>
-    <li><a href="#maker">Maker Space</a></li>
-    <li><a href="#espacio">Espacio</a></li>
-    <li><a href="#inversion">Inversión</a></li>
+  <a href="index.html" class="nav-logo">APEX<span>.</span>GR</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="centros.html">El centro</a></li>
+    <li><a href="cumpleanos.html">Cumpleaños</a></li>
+    <li><a href="empresas.html">Empresas</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="reservar.html" class="nav-cta">Reservar plaza</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta" id="btn-reservar">Reservar ahora</a>
 </nav>
 
 <!-- HERO -->
@@ -973,11 +48,11 @@
       <span class="line-sub">& Maker Space</span>
     </h1>
     <p class="hero-desc">
-      El primer espacio en Granada que combina simracing profesional, fabricación digital bajo demanda y gaming de alta gama. Más que un cibercafé. Un taller del futuro.
+      Gaming sin límites. Simracing profesional, PCs de alta gama y fabricación digital, todo bajo el mismo techo en el centro de Granada. Reserva tu plaza y vive la experiencia.
     </p>
     <div class="hero-actions">
-      <a href="#servicios" class="btn-primary">Descubre el espacio</a>
-      <a href="#inversion" class="btn-secondary">Ver presupuesto →</a>
+      <a href="reservar.html" class="btn-primary" data-sound="descubre-sound">Reservar plaza</a>
+      <a href="#experiencias" class="btn-secondary">Ver experiencias →</a>
     </div>
   </div>
   <div class="hero-right">
@@ -992,15 +67,15 @@
           <div class="stat-label">PCs RTX 4070</div>
         </div>
         <div class="stat-box">
-          <div class="stat-number">3<span>D</span></div>
-          <div class="stat-label">Impresoras gama alta</div>
+          <div class="stat-number">2<span>×</span></div>
+          <div class="stat-label">PS5 + TV 4K</div>
         </div>
         <div class="stat-box">
-          <div class="stat-number">70<span>m²</span></div>
-          <div class="stat-label">Espacio optimizado</div>
+          <div class="stat-number">3<span>D</span></div>
+          <div class="stat-label">Maker / Impresión 3D</div>
         </div>
       </div>
-      <div class="hero-location">📍 Centro de Granada · 43.000€ inversión inicial</div>
+      <div class="hero-location">📍 Centro de Granada · Abrimos pronto</div>
     </div>
   </div>
 </section>
@@ -1008,666 +83,195 @@
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    SIMRACING PROFESIONAL <span>✦</span> IMPRESIÓN 3D A MEDIDA <span>✦</span> TORNEOS LOCALES <span>✦</span> CIRCUITOS DE GRANADA RECREADOS <span>✦</span> DIRECT DRIVE WHEELS <span>✦</span> PROTOTIPOS DE INGENIERÍA <span>✦</span> PEDALES HIDRÁULICOS <span>✦</span> BAMBU LAB X1 CARBON <span>✦</span> TELEMETRÍA EN TIEMPO REAL <span>✦</span> SIMRACING PROFESIONAL <span>✦</span> IMPRESIÓN 3D A MEDIDA <span>✦</span> TORNEOS LOCALES <span>✦</span> CIRCUITOS DE GRANADA RECREADOS <span>✦</span> DIRECT DRIVE WHEELS <span>✦</span> PROTOTIPOS DE INGENIERÍA <span>✦</span> PEDALES HIDRÁULICOS <span>✦</span> BAMBU LAB X1 CARBON <span>✦</span> TELEMETRÍA EN TIEMPO REAL <span>✦</span>
+    SIMRACING PROFESIONAL <span>✦</span> GAMING RTX 4070 <span>✦</span> TORNEOS LOCALES <span>✦</span> CUMPLEAÑOS GAMER <span>✦</span> DIRECT DRIVE WHEELS <span>✦</span> EVENTOS DE EMPRESA <span>✦</span> PEDALES HIDRÁULICOS <span>✦</span> PS5 + TV 4K <span>✦</span> MAKER SPACE <span>✦</span> SIMRACING PROFESIONAL <span>✦</span> GAMING RTX 4070 <span>✦</span> TORNEOS LOCALES <span>✦</span> CUMPLEAÑOS GAMER <span>✦</span> DIRECT DRIVE WHEELS <span>✦</span> EVENTOS DE EMPRESA <span>✦</span> PEDALES HIDRÁULICOS <span>✦</span> PS5 + TV 4K <span>✦</span> MAKER SPACE <span>✦</span>
   </div>
 </div>
 
-<!-- SERVICIOS -->
-<section class="services" id="servicios">
+<!-- EXPERIENCIAS -->
+<section class="services" id="experiencias">
   <div class="services-intro reveal">
     <div>
-      <div class="section-tag">01 — Servicios</div>
-      <h2>Tres ejes,<br><em>un solo</em><br>espacio</h2>
+      <div class="section-tag">01 — Experiencias</div>
+      <h2>Tres formas<br>de <em>jugar</em></h2>
     </div>
     <p>
-      APEX Granada no es un cibercafé al uso. Hemos diseñado un espacio que genera valor real para la comunidad: pilotos que buscan físicas exactas, ingenieros que necesitan prototipos, y gamers que exigen el mejor hardware disponible. Todo bajo el mismo techo, en el centro de Granada.
+      APEX no es un cibercafé al uso. Es un centro pensado para vivir el gaming al máximo: pilotos que buscan físicas reales, gamers que exigen el mejor hardware y makers que quieren crear. Todo bajo el mismo techo, en el centro de Granada.
     </p>
   </div>
   <div class="service-grid">
     <div class="service-card reveal">
       <div class="service-num">01 — Simracing</div>
       <span class="service-icon">🏎️</span>
-      <h3>Los Simuladores</h3>
-      <p>Dos cockpits de aluminio con Direct Drive, pedales hidráulicos y triple monitor. Formato 1v1 con telemetría completa. El reclamo premium que diferencia APEX de cualquier competencia en Granada.</p>
+      <h3>Simracing Pro</h3>
+      <p>Dos cockpits de aluminio con Direct Drive, pedales hidráulicos y triple monitor. Formato 1v1 con telemetría completa. El reclamo premium que diferencia a APEX.</p>
       <div class="service-specs">
-        <div class="service-spec">Volantes Direct Drive min. 10Nm</div>
-        <div class="service-spec">Pedales célula de carga</div>
+        <div class="service-spec">Volantes Direct Drive 10Nm+</div>
+        <div class="service-spec">Pedales de célula de carga</div>
         <div class="service-spec">Triple monitor + H-shifter</div>
         <div class="service-spec">Circuitos de Sierra Nevada</div>
       </div>
     </div>
     <div class="service-card reveal">
-      <div class="service-num">02 — Fabricación</div>
+      <div class="service-num">02 — Gaming</div>
+      <span class="service-icon">🎮</span>
+      <h3>PCs & Consolas</h3>
+      <p>Ocho PCs con RTX 4070 y dos puestos PS5 con TV 4K y sofás. Periféricos mecánicos, red de baja latencia y catálogo de juegos siempre actualizado. Cero tiempo muerto.</p>
+      <div class="service-specs">
+        <div class="service-spec">8× PCs RTX 4070 / mecánicos</div>
+        <div class="service-spec">2× PS5 + TV 4K + sofás</div>
+        <div class="service-spec">Red Cat7 de baja latencia</div>
+        <div class="service-spec">Torneos y ligas locales</div>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03 — Maker</div>
       <span class="service-icon">🖨️</span>
       <h3>Maker Space</h3>
-      <p>El dinero no está en imprimir figuras de internet. Está en el diseño y modelado. Con capacidad de modelado 3D, C++ y Unreal Engine 5 ofrecemos soluciones técnicas reales a ingenieros, talleres y creadores.</p>
+      <p>Impresión 3D y modelado a la vista del público. Más allá de imprimir: diseño y modelado profesional, piezas a medida, prototipos y assets para creadores.</p>
       <div class="service-specs">
         <div class="service-spec">2× Bambu Lab X1 Carbon (FDM)</div>
-        <div class="service-spec">1× Impresora resina detalles</div>
+        <div class="service-spec">1× Impresora de resina</div>
         <div class="service-spec">PLA, PETG, ABS disponibles</div>
         <div class="service-spec">Modelado 3D profesional</div>
       </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-num">03 — Gaming</div>
-      <span class="service-icon">🎮</span>
-      <h3>PCs & Consolas</h3>
-      <p>Ocho PCs con RTX 4070 y dos puestos PS5 con TV 4K. La gestión de red automatizada con Azure e infraestructura Terraform garantiza cero tiempo muerto y actualizaciones instantáneas en toda la sala.</p>
-      <div class="service-specs">
-        <div class="service-spec">8× PCs RTX 4070 / Mecánicos</div>
-        <div class="service-spec">2× PS5 + TV 4K + sofás</div>
-        <div class="service-spec">Red Cat7 gestionada (Azure)</div>
-        <div class="service-spec">Automatización con Terraform</div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- SIMRACING DEEP DIVE -->
-<section class="simracing" id="simracing">
-  <div class="sim-layout">
-    <div>
-      <div class="section-tag reveal">02 — Simracing Pro</div>
-      <h2 class="reveal">Físicas que<br><em>se sienten</em><br>de verdad</h2>
-      <div class="sim-features reveal">
-        <div class="sim-feature">
-          <div class="sim-feature-num">→</div>
-          <div class="sim-feature-content">
-            <h4>Telemetría y ajuste fino</h4>
-            <p>Los pilotos pueden notar diferencias reales: la línea de escape, el bloque 1.9 TDI ATD frente a un Mustang GT. No es un arcade.</p>
-          </div>
-        </div>
-        <div class="sim-feature">
-          <div class="sim-feature-num">→</div>
-          <div class="sim-feature-content">
-            <h4>Circuitos de Granada recreados</h4>
-            <p>Usando datos geoespaciales y Cesium recreamos tramos de la Sierra y carreteras locales para torneos en escenarios que la gente conoce.</p>
-          </div>
-        </div>
-        <div class="sim-feature">
-          <div class="sim-feature-num">→</div>
-          <div class="sim-feature-content">
-            <h4>Formato 1v1 y campeonatos</h4>
-            <p>Dos simuladores enfrentados: el formato perfecto para ligas locales. Con clasificaciones, gestión de pilotos y premios periódicos.</p>
-          </div>
-        </div>
-        <div class="sim-feature">
-          <div class="sim-feature-num">→</div>
-          <div class="sim-feature-content">
-            <h4>Marketing pasivo por visibilidad</h4>
-            <p>Los cockpits están a la vista desde la zona de PCs. Ver las máquinas en acción genera deseo y convierte al visitante en cliente.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sim-visual reveal">
-      <div class="sim-cockpit-art">
-        <div class="racing-line-accent"></div>
-        <div class="cockpit-hud">
-          <div class="hud-top">
-            <span>APEX — SIM 01</span>
-            <span>▶ EN CARRERA</span>
-          </div>
-          <div class="hud-speed">
-            <div class="hud-speed-num" id="hud-speed">000</div>
-            <div class="hud-speed-unit">KM/H · <span id="hud-rpm" style="color:var(--c-red)">0</span> RPM</div>
-          </div>
-          <div class="hud-bars">
-            <div>
-              <div class="hud-bar-label">ACELERADOR</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-throttle" style="width:0%"></div></div>
-            </div>
-            <div>
-              <div class="hud-bar-label">FRENADA</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-brake" style="width:0%"></div></div>
-            </div>
-            <div>
-              <div class="hud-bar-label">VOLANTE</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill cyan" id="hud-steering" style="width:50%"></div></div>
-            </div>
-            <div>
-              <div class="hud-bar-label">EMBRAGUE</div>
-              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-clutch" style="width:0%"></div></div>
-            </div>
-          </div>
-          <div class="hud-bottom">
-            <div>
-              <div style="color: var(--c-slate)">VUELTA</div>
-              <div id="hud-lap" style="color: var(--c-cyan)">--:--.---</div>
-            </div>
-            <div style="text-align:center">
-              <div style="color:var(--c-slate)">MARCHA</div>
-              <div class="hud-gear" id="hud-gear">N</div>
-            </div>
-            <div style="text-align:right">
-              <div style="color:var(--c-slate)">CIRCUITO</div>
-              <div id="hud-circuit" style="color:var(--c-light)">—</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MAKER / PRINTING -->
-<section class="printing" id="maker">
-  <div class="print-layout">
+<!-- CENTRO GRANADA (teaser) -->
+<section class="simracing">
+  <div class="section-tag reveal">02 — El centro</div>
+  <h2 class="reveal">Un espacio,<br><em>todas</em> las<br>experiencias</h2>
+  <div class="split">
+    <div class="split-media reveal" role="img" aria-label="Centro APEX en Granada"></div>
     <div class="reveal">
-      <div class="section-tag">03 — Maker Space</div>
-      <h2>Máquinas<br>que <em>crean</em></h2>
-      <div class="print-machines">
-        <div class="machine-card">
-          <div class="machine-dot"></div>
-          <div class="machine-info">
-            <h4>Bambu Lab X1 Carbon — FDM #1</h4>
-            <p>Alta velocidad · Multi-material</p>
-          </div>
-          <div class="machine-status">Operativa</div>
-        </div>
-        <div class="machine-card">
-          <div class="machine-dot"></div>
-          <div class="machine-info">
-            <h4>Bambu Lab X1 Carbon — FDM #2</h4>
-            <p>Alta velocidad · Multi-material</p>
-          </div>
-          <div class="machine-status">Operativa</div>
-        </div>
-        <div class="machine-card">
-          <div class="machine-dot amber"></div>
-          <div class="machine-info">
-            <h4>Impresora de Resina — Detalles</h4>
-            <p>Alta resolución · Piezas finas</p>
-          </div>
-          <div class="machine-status amber">Curado</div>
-        </div>
+      <p class="lead">
+        70–80 m² en el centro de Granada divididos en zonas: simracing, gaming en PC, consolas con sofás y el maker space a la vista. Diseñado para que cada visita sea una experiencia completa.
+      </p>
+      <div class="contact-items" style="margin-top:2rem;">
+        <div class="contact-item"><span class="contact-item-label">Ubicación</span><span class="contact-item-val">Centro de Granada, Andalucía 🇪🇸</span></div>
+        <div class="contact-item"><span class="contact-item-label">Horario</span><span class="contact-item-val">Lun–Dom · 10:00 – 00:00 (previsto)</span></div>
       </div>
-    </div>
-    <div class="print-services reveal">
-      <p>
-        Las impresoras trabajan a la vista del público tras un cristal. Ver las máquinas en funcionamiento es publicidad pasiva 24/7. El modelo de negocio real está en el <strong>diseño y el modelado profesional</strong>: piezas mecánicas a medida, prototipos para ingeniería de la UGR y assets para videojuegos.
-      </p>
-      <p>
-        Con dominio de Unreal Engine 5, modelado 3D y scripting en C++, podemos abarcar desde modificaciones de coches hasta visualización arquitectónica. El servicio no es imprimir: es resolver problemas técnicos.
-      </p>
-      <div class="print-use-cases">
-        <div class="use-case">Piezas para tuning</div>
-        <div class="use-case">Prototipos UGR</div>
-        <div class="use-case">Assets de videojuego</div>
-        <div class="use-case">Figuras personalizadas</div>
-        <div class="use-case">Componentes industriales</div>
-        <div class="use-case">Maquetas y arquitectura</div>
+      <div style="margin-top:2rem;">
+        <a href="centros.html" class="btn-primary">Conocer el centro</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ESPACIO -->
-<section class="space-section" id="espacio">
-  <div class="section-tag reveal">04 — Diseño del Espacio</div>
-  <h2 class="reveal">70–80 m² de<br><em>puro</em> propósito</h2>
-  <div class="floorplan reveal">
-    <div class="floorplan-grid">
-      <div class="zone zone-entry">
-        <div>
-          <div class="zone-label">Zona A</div>
-          <div class="zone-name">Entrada & Maker</div>
-        </div>
-        <div>
-          <p style="font-size:0.82rem;color:var(--c-slate);line-height:1.6;margin:1rem 0;">Mostrador, impresoras a la vista, exposición de piezas. Primera impresión impactante.</p>
-          <div class="zone-m2">~15 m²</div>
-        </div>
-        <div class="zone-icon">🖨️</div>
+<!-- EVENTOS: cumpleaños + empresas -->
+<section class="services">
+  <div class="section-tag reveal">03 — Eventos</div>
+  <h2 class="reveal">Celebra a lo<br><em>grande</em></h2>
+  <div class="centers-grid">
+    <div class="center-card reveal">
+      <div class="center-media" role="img" aria-label="Cumpleaños gamer en APEX">
+        <span class="center-badge">Cumpleaños</span>
       </div>
-      <div class="zone zone-gaming">
-        <div>
-          <div class="zone-label">Zona B</div>
-          <div class="zone-name">Gaming Zone</div>
-        </div>
-        <div class="zone-m2">~35 m²</div>
-        <div class="zone-icon">💻</div>
-      </div>
-      <div class="zone zone-print">
-        <div>
-          <div class="zone-label">Zona D</div>
-          <div class="zone-name">Racing Zone</div>
-        </div>
-        <div>
-          <p style="font-size:0.82rem;color:var(--c-slate);line-height:1.6;margin:1rem 0;">Visible desde la sala gaming. Los pilotos concentrados; los curiosos pueden ver la acción.</p>
-          <div class="zone-m2">~20 m²</div>
-        </div>
-        <div class="zone-icon">🏎️</div>
-      </div>
-      <div class="zone zone-racing">
-        <div>
-          <div class="zone-label">Zona C</div>
-          <div class="zone-name">Consolas & Sofás</div>
-        </div>
-        <div class="zone-m2">~10 m²</div>
-        <div class="zone-icon">🎮</div>
+      <div class="center-body">
+        <h3>Cumpleaños gamer</h3>
+        <p style="color:var(--c-slate);font-size:0.95rem;line-height:1.7;">Sala reservada, simuladores, PCs y consolas para el grupo, torneo privado y mucho más. La fiesta gamer definitiva en Granada.</p>
+        <a href="cumpleanos.html" class="btn-primary">Ver paquetes</a>
       </div>
     </div>
-    <div class="floorplan-note">Distribución orientativa · Local centro de Granada · 70–80 m²</div>
-  </div>
-</section>
-
-<!-- PRESUPUESTO -->
-<section class="budget-section" id="inversion">
-  <div class="section-tag reveal">05 — Inversión</div>
-  <h2 class="reveal">43.000€ para<br><em>construir</em><br>el futuro</h2>
-  <div class="budget-table reveal">
-    <div class="budget-header">
-      <span>Concepto</span>
-      <span>Hardware / Detalle</span>
-      <span style="text-align:right">Coste</span>
-    </div>
-    <div class="budget-row">
-      <div class="budget-concept">2 Simuladores Pro</div>
-      <div class="budget-detail">Cockpits aluminio, Direct Drive (min. 10Nm), pedales hidráulicos/célula de carga, triple monitor, H-shifter, PCs dedicados</div>
-      <div class="budget-cost">10.000€</div>
-    </div>
-    <div class="budget-row">
-      <div class="budget-concept">Taller de Impresión 3D</div>
-      <div class="budget-detail">2× Bambu Lab X1 Carbon, 1× Resina, estación curado/lavado, stock filamentos PLA/PETG/ABS</div>
-      <div class="budget-cost">3.500€</div>
-    </div>
-    <div class="budget-row">
-      <div class="budget-concept">8 PCs + 2 PS5</div>
-      <div class="budget-detail">RTX 4070, periféricos mecánicos, 2× PS5 con TV 4K y mandos extra</div>
-      <div class="budget-cost">13.500€</div>
-    </div>
-    <div class="budget-row">
-      <div class="budget-concept">Mobiliario & Red</div>
-      <div class="budget-detail">Mesas, sillas ergonómicas, sofás, Cat7, rack de servidores, switch gestionable</div>
-      <div class="budget-cost">4.000€</div>
-    </div>
-    <div class="budget-row">
-      <div class="budget-concept">Adecuación del Local</div>
-      <div class="budget-detail">Proyecto técnico en Granada, fianza, instalación eléctrica reforzada y climatización</div>
-      <div class="budget-cost">12.000€</div>
-    </div>
-    <div class="budget-total">
-      <div class="budget-total-label">Inversión total estimada</div>
-      <div class="budget-total-num">43.000€</div>
+    <div class="center-card reveal">
+      <div class="center-media" role="img" aria-label="Eventos de empresa en APEX">
+        <span class="center-badge">Empresas</span>
+      </div>
+      <div class="center-body">
+        <h3>Eventos de empresa</h3>
+        <p style="color:var(--c-slate);font-size:0.95rem;line-height:1.7;">Team building con torneos de simracing y gaming, jornadas privadas y experiencias a medida para tu equipo.</p>
+        <a href="empresas.html" class="btn-primary">Ver propuestas</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- UBICACIÓN / CONTACTO -->
-<section class="location-section" id="contacto">
-  <div class="section-tag reveal">06 — Contacto</div>
-  <h2 class="reveal">Estamos en<br><em>Granada</em></h2>
-  <div class="location-layout">
-    <div class="location-map reveal">
-      <iframe
-        src="https://maps.google.com/maps?q=37.1773,-3.5986&hl=es&z=15&output=embed"
-        loading="lazy"
-        title="Mapa del centro de Granada"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+<!-- PATROCINADORES -->
+<section class="sponsors">
+  <div class="section-tag reveal">04 — Patrocinadores</div>
+  <h2 class="reveal">Con el apoyo<br>de <em>las marcas</em></h2>
+  <p class="lead reveal">Trabajamos con las mejores marcas del sector gaming y simracing. ¿Quieres que tu marca esté aquí?</p>
+  <div class="sponsors-track reveal">
+    <div class="sponsor">TU LOGO</div>
+    <div class="sponsor">PARTNER</div>
+    <div class="sponsor">PARTNER</div>
+    <div class="sponsor">PARTNER</div>
+    <a href="reservar.html?tipo=empresa" class="sponsor join">¿Patrocinar? →</a>
+  </div>
+</section>
+
+<!-- FAQ teaser -->
+<section class="location-section">
+  <div class="section-tag reveal">05 — Dudas frecuentes</div>
+  <h2 class="reveal">Lo que<br>más nos <em>preguntan</em></h2>
+  <div class="faq reveal">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Hace falta experiencia para el simracing?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Para nada. Ajustamos las ayudas y la dificultad a tu nivel: desde quien nunca ha tocado un volante hasta pilotos que buscan décimas. Siempre hay alguien para ayudarte.</div></div>
     </div>
-    <div class="location-info reveal">
-      <p>
-        APEX Granada estará ubicado en el centro de la ciudad, bien comunicado y a pocos minutos de la Universidad de Granada. Buscamos un local de 70–80 m² en zona de paso con buena visibilidad.
-      </p>
-      <p>
-        ¿Eres inversor, tienes un local disponible, o quieres ser parte de la primera hornada de socios? Escríbenos.
-      </p>
-      <div class="contact-items">
-        <div class="contact-item">
-          <span class="contact-item-label">Email</span>
-          <span class="contact-item-val">hola@apexgranada.es</span>
-        </div>
-        <div class="contact-item">
-          <span class="contact-item-label">Instagram</span>
-          <span class="contact-item-val">@apex.granada</span>
-        </div>
-        <div class="contact-item">
-          <span class="contact-item-label">Horario previsto</span>
-          <span class="contact-item-val">Lun–Dom · 10:00 – 00:00</span>
-        </div>
-        <div class="contact-item">
-          <span class="contact-item-label">Ubicación</span>
-          <span class="contact-item-val">Granada, Andalucía 🇪🇸</span>
-        </div>
-      </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo reservar para un grupo?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Sí. Puedes reservar varios puestos a la vez e incluso la sala completa para cumpleaños y eventos. Escríbenos con la fecha y el número de personas.</div></div>
     </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué edad hace falta para entrar?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">El centro es para todos los públicos. Los menores de cierta edad deben venir acompañados o con autorización; respetamos siempre la clasificación PEGI de cada juego.</div></div>
+    </div>
+  </div>
+  <div style="margin-top:2.5rem;" class="reveal">
+    <a href="faq.html" class="btn-secondary">Ver todas las preguntas →</a>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-band">
   <h2>¿Listo para<br>el próximo nivel?</h2>
-  <p>Sé el primero en reservar un puesto cuando abramos. Lista de espera limitada.</p>
-  <a href="mailto:hola@apexgranada.es" class="btn-white">Apuntarse a la lista ↗</a>
+  <p>Reserva tu plaza y sé de los primeros en vivir APEX cuando abramos en Granada.</p>
+  <a href="reservar.html" class="btn-light" data-sound="descubre-sound">Reservar plaza ↗</a>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-logo">APEX<span>.</span>GR</div>
-  <p>© 2025 APEX Granada · Simracing & Maker Space · Todos los derechos reservados</p>
-  <div class="footer-social">
-    <a href="#">Instagram</a>
-    <a href="#">Twitter/X</a>
-    <a href="#">Discord</a>
+<footer class="site-footer">
+  <div class="footer-cols">
+    <div class="footer-brand">
+      <div class="footer-logo">APEX<span>.</span>GR</div>
+      <p class="footer-tagline">Gaming sin límites. Simracing profesional, gaming de alta gama y maker space en el centro de Granada.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Explora</h5>
+      <a href="index.html">Inicio</a>
+      <a href="centros.html">El centro</a>
+      <a href="cumpleanos.html">Cumpleaños</a>
+      <a href="empresas.html">Empresas</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h5>Reservas</h5>
+      <a href="reservar.html">Reservar plaza</a>
+      <a href="mailto:hola@apexgranada.es">hola@apexgranada.es</a>
+      <a href="tel:+34000000000">+34 000 000 000</a>
+    </div>
+    <div class="footer-col">
+      <h5>Síguenos</h5>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Discord</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 APEX Granada · Todos los derechos reservados</p>
+    <div class="footer-legal">
+      <a href="#">Aviso legal</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Cookies</a>
+    </div>
   </div>
 </footer>
 
-<audio id="reservar-sound" src="reservar.mp3" preload="auto"></audio>
+<audio id="descubre-sound" src="reservar.mp3" preload="auto"></audio>
 
-<script>
-  // ── SONIDO RESERVAR ─────────────────────────────────────
-  document.getElementById('btn-reservar').addEventListener('click', () => {
-    const snd = document.getElementById('reservar-sound');
-    snd.currentTime = 0;
-    snd.play();
-  });
-
-  // ── CURSOR ──────────────────────────────────────────────
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
-      ring.style.width = '60px'; ring.style.height = '60px';
-      ring.style.borderColor = 'rgba(232,52,28,0.8)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.width = '36px'; ring.style.height = '36px';
-      ring.style.borderColor = 'rgba(232,52,28,0.5)';
-    });
-  });
-
-  // ── REVEAL ───────────────────────────────────────────────
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // ── TELEMETRÍA EN TIEMPO REAL ────────────────────────────
-  // Sistema preparado para conectar a simuladores reales vía WebSocket.
-  // Compatible con SimHub, ACC broadcast, iRacing SDK o cualquier servidor
-  // personalizado que emita JSON con el formato:
-  //   { speed, rpm, gear, throttle (0-1), brake (0-1), steering (-1..1),
-  //     tireTemp, currentLap, bestLap, circuit }
-  // Mientras no haya conexión activa se muestra un modo DEMO realista
-  // (no aleatorio): una vuelta paramétrica con curvas, frenadas y rectas.
-
-  const HUD = {
-    speed:    document.getElementById('hud-speed'),
-    rpm:      document.getElementById('hud-rpm'),
-    throttle: document.getElementById('hud-throttle'),
-    brake:    document.getElementById('hud-brake'),
-    steering: document.getElementById('hud-steering'),
-    clutch:   document.getElementById('hud-clutch'),
-    lap:      document.getElementById('hud-lap'),
-    gear:     document.getElementById('hud-gear'),
-    circuit:  document.getElementById('hud-circuit'),
-  };
-
-  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-  function fmtLap(t) {
-    if (typeof t !== 'number') return t || '--:--.---';
-    const m = Math.floor(t / 60);
-    const s = (t - m * 60).toFixed(3);
-    return `${m}:${s.padStart(6, '0')}`;
-  }
-
-  function updateHUD(d) {
-    if (!d) return;
-    if (HUD.speed && d.speed != null)       HUD.speed.textContent    = String(Math.round(d.speed)).padStart(3, '0');
-    if (HUD.rpm && d.rpm != null)           HUD.rpm.textContent      = Math.round(d.rpm);
-    if (HUD.throttle && d.throttle != null) HUD.throttle.style.width = clamp(d.throttle * 100, 0, 100) + '%';
-    if (HUD.brake && d.brake != null)       HUD.brake.style.width    = clamp(d.brake * 100, 0, 100) + '%';
-    if (HUD.steering && d.steering != null) HUD.steering.style.width = clamp((d.steering + 1) / 2 * 100, 0, 100) + '%';
-    if (HUD.clutch && d.clutch != null)     HUD.clutch.style.width   = clamp(d.clutch * 100, 0, 100) + '%';
-    if (HUD.lap && d.currentLap != null)    HUD.lap.textContent      = fmtLap(d.currentLap);
-    if (HUD.gear && d.gear != null)         HUD.gear.textContent     = d.gear === 0 ? 'N' : (d.gear === -1 ? 'R' : d.gear);
-    if (HUD.circuit && d.circuit != null)   HUD.circuit.textContent  = d.circuit;
-  }
-
-  // ── MODO DEMO: simulación paramétrica de una vuelta ──────
-  // Segmentos representan una vuelta real: rectas, frenadas, curvas, salidas.
-  const demoLap = [
-    { dur: 6.0, speed: 280, rpm: 7200, throttle: 1.00, brake: 0.00, gear: 6, steering:  0.00 },
-    { dur: 1.4, speed: 110, rpm: 4500, throttle: 0.00, brake: 0.95, gear: 3, steering: -0.55 },
-    { dur: 3.5, speed: 130, rpm: 5800, throttle: 0.60, brake: 0.00, gear: 3, steering: -0.70 },
-    { dur: 4.5, speed: 220, rpm: 6800, throttle: 0.95, brake: 0.00, gear: 5, steering:  0.10 },
-    { dur: 1.2, speed:  90, rpm: 3500, throttle: 0.00, brake: 0.92, gear: 2, steering:  0.65 },
-    { dur: 3.0, speed: 100, rpm: 5200, throttle: 0.72, brake: 0.00, gear: 2, steering:  0.80 },
-    { dur: 4.0, speed: 200, rpm: 6500, throttle: 0.95, brake: 0.00, gear: 5, steering:  0.00 },
-    { dur: 5.0, speed: 260, rpm: 7000, throttle: 1.00, brake: 0.00, gear: 6, steering:  0.00 },
-  ];
-  const SHIFT_WINDOW = 0.13; // segundos que dura el embrague en cada cambio
-  const DEMO_TOTAL = demoLap.reduce((s, x) => s + x.dur, 0);
-
-  function demoState(t) {
-    const cycle = t % DEMO_TOTAL;
-    let acc = 0;
-    for (let i = 0; i < demoLap.length; i++) {
-      const s = demoLap[i];
-      if (cycle < acc + s.dur) {
-        const next = demoLap[(i + 1) % demoLap.length];
-        const u = (cycle - acc) / s.dur;
-        const k = u < 0.5 ? 2*u*u : -1 + (4 - 2*u) * u; // ease in-out
-        const lerp = (a, b) => a + (b - a) * k;
-        const timeInSeg = cycle - acc;
-        const timeToEnd = s.dur - timeInSeg;
-        const prev = demoLap[(i - 1 + demoLap.length) % demoLap.length];
-        const clutch = (prev.gear !== s.gear && timeInSeg < SHIFT_WINDOW) ||
-                       (s.gear !== next.gear && timeToEnd < SHIFT_WINDOW) ? 1 : 0;
-        return {
-          speed:    lerp(s.speed,    next.speed),
-          rpm:      lerp(s.rpm,      next.rpm),
-          throttle: lerp(s.throttle, next.throttle),
-          brake:    lerp(s.brake,    next.brake),
-          steering: lerp(s.steering, next.steering),
-          clutch,
-          gear: s.gear,
-          currentLap: cycle,
-          circuit: 'SIERRA GR · DEMO',
-        };
-      }
-      acc += s.dur;
-    }
-    return null;
-  }
-
-  // ── ESTADO DE CONEXIÓN ──────────────────────────────────
-  let ws = null;
-  let conn = 'demo'; // 'demo' | 'connecting' | 'live' | 'error'
-  let demoT = 0;
-  let lastTick = performance.now();
-
-  function tick(now) {
-    const dt = (now - lastTick) / 1000;
-    lastTick = now;
-    if (conn !== 'live') {
-      demoT += dt;
-      updateHUD(demoState(demoT));
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
-  // ── CONEXIÓN WEBSOCKET ──────────────────────────────────
-  function setConn(state) {
-    conn = state;
-    const dot = document.getElementById('tele-dot');
-    const lbl = document.getElementById('tele-label');
-    if (!dot || !lbl) return;
-    const map = {
-      demo:       { c: '#f59e0b', t: 'DEMO' },
-      connecting: { c: '#22d3ee', t: 'CONECTANDO…' },
-      live:       { c: '#10b981', t: '● EN VIVO' },
-      error:      { c: '#e8341c', t: 'SIN CONEXIÓN' },
-    };
-    const v = map[state];
-    dot.style.background = v.c;
-    dot.style.boxShadow = `0 0 8px ${v.c}`;
-    lbl.style.color = v.c;
-    lbl.textContent = v.t;
-  }
-
-  function connect(url) {
-    if (ws) { try { ws.close(); } catch(e){} ws = null; }
-    setConn('connecting');
-    try {
-      ws = new WebSocket(url);
-      const timeout = setTimeout(() => {
-        if (ws && ws.readyState !== WebSocket.OPEN) {
-          try { ws.close(); } catch(e){}
-          setConn('error');
-        }
-      }, 5000);
-      ws.onopen = () => { clearTimeout(timeout); setConn('live'); };
-      ws.onmessage = (msg) => {
-        try {
-          const data = JSON.parse(msg.data);
-          // Compatibilidad: SimHub usa nombres como SpeedKmh, Rpms, Gear...
-          // Normalizamos campos comunes.
-          updateHUD({
-            speed:      data.speed      ?? data.SpeedKmh      ?? data.Speed,
-            rpm:        data.rpm        ?? data.Rpms          ?? data.RPM,
-            gear:       data.gear       ?? data.Gear,
-            throttle:   data.throttle   ?? data.Throttle,
-            brake:      data.brake      ?? data.Brake,
-            steering:   data.steering   ?? data.Steering,
-            clutch:     data.clutch     ?? data.Clutch,
-            currentLap: data.currentLap ?? data.CurrentLapTime,
-            circuit:    data.circuit    ?? data.TrackName,
-          });
-        } catch (e) { /* payload no JSON, ignorar */ }
-      };
-      ws.onerror = () => { clearTimeout(timeout); setConn('error'); };
-      ws.onclose = () => {
-        clearTimeout(timeout);
-        if (conn === 'live') setConn('demo');
-        ws = null;
-      };
-    } catch (e) {
-      setConn('error');
-    }
-  }
-
-  function disconnect() {
-    if (ws) { try { ws.close(); } catch(e){} ws = null; }
-    setConn('demo');
-  }
-
-  // ── PANEL DE TELEMETRÍA (esquina inferior derecha) ───────
-  const panel = document.createElement('button');
-  panel.id = 'telemetry-panel';
-  panel.innerHTML = `
-    <span id="tele-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></span>
-    <span id="tele-label" style="color:#f59e0b;">DEMO</span>
-    <span style="color:#6b7280">· TELEMETRÍA</span>
-  `;
-  panel.style.cssText = `
-    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
-    font-family: 'Space Mono', monospace; font-size: 0.6rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    background: rgba(9,9,9,0.92); color: #e8eaed;
-    border: 1px solid #1a1d20; padding: 0.65rem 1rem;
-    cursor: none; display: flex; align-items: center; gap: 0.55rem;
-    transition: border-color 0.2s;
-  `;
-  panel.addEventListener('mouseenter', () => panel.style.borderColor = '#e8341c');
-  panel.addEventListener('mouseleave', () => panel.style.borderColor = '#1a1d20');
-  panel.addEventListener('click', openModal);
-  document.body.appendChild(panel);
-
-  // ── MODAL DE CONFIGURACIÓN ───────────────────────────────
-  function openModal() {
-    if (document.getElementById('tele-modal')) return;
-    const modal = document.createElement('div');
-    modal.id = 'tele-modal';
-    modal.style.cssText = `
-      position: fixed; inset: 0; z-index: 1000; cursor: none;
-      background: rgba(9,9,9,0.85); backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-    `;
-    const savedUrl = (typeof localStorage !== 'undefined' && localStorage.getItem('apex-tele-url')) || 'ws://localhost:8765/telemetry';
-    modal.innerHTML = `
-      <div style="background:#111213;border:1px solid #1a1d20;padding:2.5rem;max-width:520px;width:90%;">
-        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:#e8341c;text-transform:uppercase;margin-bottom:0.5rem;">— Telemetría en tiempo real</div>
-        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:0.05em;color:#f5f5f3;margin-bottom:1.2rem;line-height:1;">Conectar simulador</h3>
-        <p style="color:#9ca3af;font-size:0.92rem;line-height:1.7;margin-bottom:1.5rem;font-family:'Crimson Pro',serif;">
-          Introduce la URL del servidor WebSocket de telemetría. Compatible con <strong style="color:#e8eaed">SimHub</strong>, plugins broadcast de <strong style="color:#e8eaed">ACC</strong>, puentes para <strong style="color:#e8eaed">iRacing</strong> o servidores propios.
-        </p>
-        <label style="display:block;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;color:#6b7280;text-transform:uppercase;margin-bottom:0.5rem;">URL WebSocket</label>
-        <input id="tele-url" type="text" value="${savedUrl}" placeholder="ws://localhost:8765/telemetry" style="
-          width:100%;background:#090909;border:1px solid #1a1d20;color:#f5f5f3;
-          padding:0.85rem 1rem;font-family:'Space Mono',monospace;font-size:0.82rem;
-          margin-bottom:1rem;outline:none;cursor:none;
-        ">
-        <div style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.12em;color:#6b7280;text-transform:uppercase;margin-bottom:0.6rem;">Preajustes rápidos</div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.8rem;">
-          <button class="tele-preset" data-url="ws://localhost:8765/telemetry" style="
-            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
-            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
-          ">Custom local</button>
-          <button class="tele-preset" data-url="ws://localhost:8888/api/v2/ws" style="
-            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
-            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
-          ">SimHub</button>
-          <button class="tele-preset" data-url="ws://localhost:4000/iracing" style="
-            font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
-            background:#1a1d20;color:#e8eaed;border:none;padding:0.5rem 0.9rem;cursor:none;text-transform:uppercase;
-          ">iRacing bridge</button>
-        </div>
-        <div style="display:flex;gap:0.8rem;justify-content:flex-end;">
-          <button id="tele-cancel" style="
-            font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;
-            background:transparent;color:#9ca3af;border:1px solid #1a1d20;padding:0.85rem 1.4rem;cursor:none;text-transform:uppercase;
-          ">${conn === 'live' ? 'Desconectar' : 'Cancelar'}</button>
-          <button id="tele-connect" style="
-            font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;
-            background:#e8341c;color:#fff;border:none;padding:0.85rem 1.8rem;cursor:none;text-transform:uppercase;
-          ">Conectar</button>
-        </div>
-        <div style="margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid #1a1d20;font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.1em;color:#3a3f47;line-height:1.7;text-transform:uppercase;">
-          JSON esperado: { speed · rpm · gear · throttle (0–1) · brake (0–1) · steering (−1 a 1) · clutch (0–1) · currentLap · circuit }
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-
-    modal.querySelectorAll('.tele-preset').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById('tele-url').value = btn.dataset.url;
-      });
-    });
-    modal.querySelector('#tele-cancel').addEventListener('click', () => {
-      if (conn === 'live') disconnect();
-      modal.remove();
-    });
-    modal.querySelector('#tele-connect').addEventListener('click', () => {
-      const url = document.getElementById('tele-url').value.trim();
-      if (!url) return;
-      try { if (typeof localStorage !== 'undefined') localStorage.setItem('apex-tele-url', url); } catch(e){}
-      connect(url);
-      modal.remove();
-    });
-    modal.addEventListener('click', e => {
-      if (e.target === modal) modal.remove();
-    });
-    document.addEventListener('keydown', function esc(e){
-      if (e.key === 'Escape') { modal.remove(); document.removeEventListener('keydown', esc); }
-    });
-  }
-</script>
+<script src="assets/site.js"></script>
 </body>
 </html>
-##cambio sonido 

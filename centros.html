@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El centro · APEX Granada</title>
+<meta name="description" content="Conoce el centro APEX en Granada: simracing con telemetría real, gaming RTX 4070, consolas PS5, maker space y distribución del local.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3Ctext x='16' y='24' font-family='Arial,sans-serif' font-size='22' font-weight='bold' fill='%23e8341c' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El centro · APEX Granada">
+<meta property="og:description" content="Simracing, gaming, consolas y maker space en el centro de Granada.">
+<meta property="og:image" content="viper.png">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">APEX<span>.</span>GR</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="centros.html">El centro</a></li>
+    <li><a href="cumpleanos.html">Cumpleaños</a></li>
+    <li><a href="empresas.html">Empresas</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="reservar.html" class="nav-cta">Reservar plaza</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="section-tag">Nuestro centro</div>
+  <h1>APEX <em style="font-style:normal;color:var(--c-red)">Granada</em></h1>
+  <p>Un único centro, en el corazón de Granada, con todo lo que necesitas para vivir el gaming y el simracing al máximo. Esto es lo que te espera dentro.</p>
+</section>
+
+<!-- TARJETA DEL CENTRO -->
+<section class="services">
+  <div class="centers-grid">
+    <div class="center-card reveal" style="grid-column:1/-1;">
+      <div class="center-media" role="img" aria-label="Centro APEX Granada">
+        <span class="center-badge">Abrimos pronto</span>
+      </div>
+      <div class="center-body">
+        <h3>APEX Granada</h3>
+        <div class="center-meta">📍 Centro de Granada, Andalucía</div>
+        <div class="center-meta">🕒 Lun–Dom · 10:00 – 00:00 (horario previsto)</div>
+        <div class="center-meta">🎮 Simracing · Gaming · Consolas · Maker</div>
+        <a href="reservar.html" class="btn-primary">Reservar plaza</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMRACING + HUD -->
+<section class="simracing" id="simracing">
+  <div class="sim-layout">
+    <div>
+      <div class="section-tag reveal">Simracing Pro</div>
+      <h2 class="reveal">Físicas que<br><em>se sienten</em><br>de verdad</h2>
+      <div class="sim-features reveal">
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Telemetría y ajuste fino</h4>
+            <p>Notas diferencias reales: la línea de carrera, el agarre, cada frenada. No es un arcade, es simulación de verdad.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Circuitos de Granada recreados</h4>
+            <p>Recreamos tramos de la Sierra y carreteras locales para correr en escenarios que la gente conoce.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Formato 1v1 y campeonatos</h4>
+            <p>Dos simuladores enfrentados: el formato perfecto para ligas locales, con clasificaciones y premios.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Para todos los niveles</h4>
+            <p>Ajustamos las ayudas a tu experiencia: desde la primera vez al volante hasta buscar la vuelta perfecta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sim-visual reveal">
+      <div class="sim-cockpit-art">
+        <div class="racing-line-accent"></div>
+        <div class="cockpit-hud">
+          <div class="hud-top">
+            <span>APEX — SIM 01</span>
+            <span>▶ EN CARRERA</span>
+          </div>
+          <div class="hud-speed">
+            <div class="hud-speed-num" id="hud-speed">000</div>
+            <div class="hud-speed-unit">KM/H · <span id="hud-rpm" style="color:var(--c-red)">0</span> RPM</div>
+          </div>
+          <div class="hud-bars">
+            <div>
+              <div class="hud-bar-label">ACELERADOR</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-throttle" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">FRENADA</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-brake" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">VOLANTE</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill cyan" id="hud-steering" style="width:50%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">EMBRAGUE</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-clutch" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="hud-bottom">
+            <div>
+              <div style="color: var(--c-slate)">VUELTA</div>
+              <div id="hud-lap" style="color: var(--c-cyan)">--:--.---</div>
+            </div>
+            <div style="text-align:center">
+              <div style="color:var(--c-slate)">MARCHA</div>
+              <div class="hud-gear" id="hud-gear">N</div>
+            </div>
+            <div style="text-align:right">
+              <div style="color:var(--c-slate)">CIRCUITO</div>
+              <div id="hud-circuit" style="color:var(--c-light)">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAKER -->
+<section class="printing" id="maker">
+  <div class="print-layout">
+    <div class="reveal">
+      <div class="section-tag">Maker Space</div>
+      <h2>Máquinas<br>que <em>crean</em></h2>
+      <div class="print-machines">
+        <div class="machine-card">
+          <div class="machine-dot"></div>
+          <div class="machine-info">
+            <h4>Bambu Lab X1 Carbon — FDM #1</h4>
+            <p>Alta velocidad · Multi-material</p>
+          </div>
+          <div class="machine-status">Operativa</div>
+        </div>
+        <div class="machine-card">
+          <div class="machine-dot"></div>
+          <div class="machine-info">
+            <h4>Bambu Lab X1 Carbon — FDM #2</h4>
+            <p>Alta velocidad · Multi-material</p>
+          </div>
+          <div class="machine-status">Operativa</div>
+        </div>
+        <div class="machine-card">
+          <div class="machine-dot amber"></div>
+          <div class="machine-info">
+            <h4>Impresora de Resina — Detalles</h4>
+            <p>Alta resolución · Piezas finas</p>
+          </div>
+          <div class="machine-status amber">Curado</div>
+        </div>
+      </div>
+    </div>
+    <div class="print-services reveal">
+      <p>
+        Las impresoras trabajan a la vista del público. Más allá de imprimir, el valor está en el <strong>diseño y el modelado profesional</strong>: piezas a medida, prototipos y assets para creadores y videojuegos.
+      </p>
+      <div class="print-use-cases">
+        <div class="use-case">Piezas para tuning</div>
+        <div class="use-case">Prototipos</div>
+        <div class="use-case">Assets de videojuego</div>
+        <div class="use-case">Figuras personalizadas</div>
+        <div class="use-case">Componentes a medida</div>
+        <div class="use-case">Maquetas y arquitectura</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONAS DEL LOCAL -->
+<section class="space-section" id="espacio">
+  <div class="section-tag reveal">Distribución</div>
+  <h2 class="reveal">70–80 m² de<br><em>puro</em> propósito</h2>
+  <div class="floorplan reveal">
+    <div class="floorplan-grid">
+      <div class="zone zone-entry">
+        <div>
+          <div class="zone-label">Zona A</div>
+          <div class="zone-name">Entrada & Maker</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;color:var(--c-slate);line-height:1.6;margin:1rem 0;">Mostrador, impresoras a la vista y exposición de piezas. Primera impresión impactante.</p>
+          <div class="zone-m2">~15 m²</div>
+        </div>
+        <div class="zone-icon">🖨️</div>
+      </div>
+      <div class="zone zone-gaming">
+        <div>
+          <div class="zone-label">Zona B</div>
+          <div class="zone-name">Gaming Zone</div>
+        </div>
+        <div class="zone-m2">~35 m²</div>
+        <div class="zone-icon">💻</div>
+      </div>
+      <div class="zone zone-print">
+        <div>
+          <div class="zone-label">Zona D</div>
+          <div class="zone-name">Racing Zone</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;color:var(--c-slate);line-height:1.6;margin:1rem 0;">Visible desde la sala gaming. Los pilotos concentrados; los curiosos pueden ver la acción.</p>
+          <div class="zone-m2">~20 m²</div>
+        </div>
+        <div class="zone-icon">🏎️</div>
+      </div>
+      <div class="zone zone-racing">
+        <div>
+          <div class="zone-label">Zona C</div>
+          <div class="zone-name">Consolas & Sofás</div>
+        </div>
+        <div class="zone-m2">~10 m²</div>
+        <div class="zone-icon">🎮</div>
+      </div>
+    </div>
+    <div class="floorplan-note">Distribución orientativa · Local centro de Granada · 70–80 m²</div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section class="location-section" id="ubicacion">
+  <div class="section-tag reveal">Ubicación</div>
+  <h2 class="reveal">Estamos en<br><em>Granada</em></h2>
+  <div class="location-layout">
+    <div class="location-map reveal">
+      <iframe
+        src="https://maps.google.com/maps?q=37.1773,-3.5986&hl=es&z=15&output=embed"
+        loading="lazy"
+        title="Mapa del centro de Granada"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+    <div class="location-info reveal">
+      <p>
+        APEX estará en pleno centro de Granada, bien comunicado y a pocos minutos de la Universidad. Un local en zona de paso, pensado para que entrar sea tan fácil como apetecible.
+      </p>
+      <div class="contact-items">
+        <a class="contact-item" href="mailto:hola@apexgranada.es">
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-val">hola@apexgranada.es</span>
+        </a>
+        <a class="contact-item" href="#">
+          <span class="contact-item-label">Instagram</span>
+          <span class="contact-item-val">@apex.granada</span>
+        </a>
+        <div class="contact-item">
+          <span class="contact-item-label">Horario</span>
+          <span class="contact-item-val">Lun–Dom · 10:00 – 00:00</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Ubicación</span>
+          <span class="contact-item-val">Granada, Andalucía 🇪🇸</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Ven a<br>vivir APEX</h2>
+  <p>Reserva tu plaza y prueba el simracing, el gaming y todo lo demás en cuanto abramos.</p>
+  <a href="reservar.html" class="btn-light">Reservar plaza ↗</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-cols">
+    <div class="footer-brand">
+      <div class="footer-logo">APEX<span>.</span>GR</div>
+      <p class="footer-tagline">Gaming sin límites. Simracing profesional, gaming de alta gama y maker space en el centro de Granada.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Explora</h5>
+      <a href="index.html">Inicio</a>
+      <a href="centros.html">El centro</a>
+      <a href="cumpleanos.html">Cumpleaños</a>
+      <a href="empresas.html">Empresas</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h5>Reservas</h5>
+      <a href="reservar.html">Reservar plaza</a>
+      <a href="mailto:hola@apexgranada.es">hola@apexgranada.es</a>
+      <a href="tel:+34000000000">+34 000 000 000</a>
+    </div>
+    <div class="footer-col">
+      <h5>Síguenos</h5>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Discord</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 APEX Granada · Todos los derechos reservados</p>
+    <div class="footer-legal">
+      <a href="#">Aviso legal</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
