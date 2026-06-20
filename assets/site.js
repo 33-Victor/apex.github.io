@@ -153,17 +153,28 @@
         '&body=' + encodeURIComponent(body);
     };
 
-    form.addEventListener('submit', (e) => {
-      const action = form.getAttribute('action') || '';
-      // POST nativo para FormSubmit (gestiona la redirección él solo)
-      if (action.includes('formsubmit.co') && !action.includes('/ajax/')) return;
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const action = form.getAttribute('action') || '';
       if (!action || action.indexOf('your_form_id') !== -1) {
         showStatus('ok', 'Abriendo tu cliente de correo para enviar la solicitud…');
         mailtoFallback();
         return;
       }
-      showStatus('ok', '¡Solicitud enviada! Te contactaremos para confirmar tu reserva.');
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Enviando…'; }
+      try {
+        // Google Apps Script no devuelve cabeceras CORS: enviamos en modo no-cors
+        // (no podemos leer la respuesta, pero el correo sí se envía).
+        await fetch(action, { method: 'POST', mode: 'no-cors', body: new FormData(form) });
+        form.reset();
+        showStatus('ok', '¡Solicitud enviada! Te contactaremos para confirmar tu reserva.');
+      } catch (err) {
+        showStatus('err', 'Sin conexión. Abrimos tu correo como alternativa…');
+        mailtoFallback();
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Enviar solicitud'; }
+      }
     });
   }
 

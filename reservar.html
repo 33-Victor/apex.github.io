@@ -50,14 +50,11 @@
   <div class="form-wrap reveal">
     <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
     <!--
-      FORMULARIO POR EMAIL via FormSubmit (sin servidor propio).
+      FORMULARIO POR EMAIL via Google Apps Script (sin servidor propio).
       Las reservas llegan a victor1242003@gmail.com.
-      El primer envío desde producción activa la cuenta (email de confirmación).
+      El "action" es la URL /exec de la app web publicada en script.google.com.
     -->
-    <form id="reserva-form" action="https://formsubmit.co/victor1242003@gmail.com" method="POST" data-email="victor1242003@gmail.com">
-      <input type="hidden" name="_subject" value="Nueva reserva · APEX Granada">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
+    <form id="reserva-form" action="https://script.google.com/macros/s/AKfycbwA8NuzC2e7il89DN628iSCnBk7lmTwJ6EFtD51apwK51R_qRQbeJIOKD0Jg0h4X520/exec" method="POST" data-email="victor1242003@gmail.com">
       <div class="form-row">
         <div class="form-field">
           <label for="f-nombre">Nombre y apellidos</label>
