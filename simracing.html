@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simracing Pro · APEX Granada</title>
+<meta name="description" content="Simracing profesional en Granada: cockpits Direct Drive, pedales hidráulicos, triple monitor y telemetría real. El simracing más serio de Andalucía.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3Ctext x='16' y='24' font-family='Arial,sans-serif' font-size='22' font-weight='bold' fill='%23e8341c' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Simracing Pro · APEX Granada">
+<meta property="og:description" content="Simracing profesional en Granada: Direct Drive, pedales hidráulicos y telemetría real.">
+<meta property="og:image" content="viper.png">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">APEX<span>.</span>GR</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="simracing.html">Simracing</a></li>
+    <li><a href="gaming.html">Gaming</a></li>
+    <li><a href="cumpleanos.html">Cumpleaños</a></li>
+    <li><a href="empresas.html">Empresas</a></li>
+    <li><a href="centros.html#ubicacion">Mapa</a></li>
+    <li><a href="reservar.html" class="nav-cta" data-sound="descubre-sound">Reservar plaza</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="section-tag">Simracing Pro</div>
+  <h1>Siente cada<br><em>curva</em></h1>
+  <p>Dos cockpits de aluminio con Direct Drive, pedales hidráulicos y triple monitor. Telemetría real, circuitos recreados de Granada. No es un arcade — es simulación de verdad.</p>
+</section>
+
+<!-- HUD + FEATURES -->
+<section class="simracing" id="cockpits">
+  <div class="sim-layout">
+    <div>
+      <div class="section-tag reveal">Los simuladores</div>
+      <h2 class="reveal">Físicas que<br><em>se sienten</em><br>de verdad</h2>
+      <div class="sim-features reveal">
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Telemetría y ajuste fino</h4>
+            <p>Notas diferencias reales: la línea de carrera, el agarre, cada frenada. No es un arcade, es simulación de verdad.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Circuitos de Granada recreados</h4>
+            <p>Recreamos tramos de la Sierra y carreteras locales para correr en escenarios que la gente conoce. Competición en lo tuyo.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Formato 1v1 y campeonatos</h4>
+            <p>Dos simuladores enfrentados: el formato perfecto para ligas locales, con clasificaciones, delta en tiempo real y premios.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Para todos los niveles</h4>
+            <p>Ajustamos las ayudas a tu experiencia: desde la primera vez al volante hasta buscar la vuelta perfecta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sim-visual reveal">
+      <div class="sim-cockpit-art">
+        <div class="racing-line-accent"></div>
+        <div class="cockpit-hud">
+          <div class="hud-top">
+            <span>APEX — SIM 01</span>
+            <span>▶ EN CARRERA</span>
+          </div>
+          <div class="hud-speed">
+            <div class="hud-speed-num" id="hud-speed">000</div>
+            <div class="hud-speed-unit">KM/H · <span id="hud-rpm" style="color:var(--c-red)">0</span> RPM</div>
+          </div>
+          <div class="hud-bars">
+            <div>
+              <div class="hud-bar-label">ACELERADOR</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-throttle" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">FRENADA</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-brake" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">VOLANTE</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill cyan" id="hud-steering" style="width:50%"></div></div>
+            </div>
+            <div>
+              <div class="hud-bar-label">EMBRAGUE</div>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-clutch" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="hud-bottom">
+            <div>
+              <div style="color:var(--c-slate)">VUELTA</div>
+              <div id="hud-lap" style="color:var(--c-cyan)">--:--.---</div>
+            </div>
+            <div style="text-align:center">
+              <div style="color:var(--c-slate)">MARCHA</div>
+              <div class="hud-gear" id="hud-gear">N</div>
+            </div>
+            <div style="text-align:right">
+              <div style="color:var(--c-slate)">CIRCUITO</div>
+              <div id="hud-circuit" style="color:var(--c-light)">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section class="services" id="hardware">
+  <div class="services-intro reveal">
+    <div>
+      <div class="section-tag">El hardware</div>
+      <h2>Sin<br><em>concesiones</em></h2>
+    </div>
+    <p>Cada componente elegido por rendimiento real. Desde el volante hasta los pedales, todo está calibrado para darte el feedback honesto que merece la física de un simulador serio.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01 — Volante</div>
+      <span class="service-icon">🎯</span>
+      <h3>Direct Drive</h3>
+      <p>Mínimo 10Nm de torque, sin engranajes intermedios. La señal del asfalto llega directa a tus manos — la diferencia respecto a un volante de engranajes es inmediata e inconfundible.</p>
+      <div class="service-specs">
+        <div class="service-spec">Mínimo 10Nm de torque</div>
+        <div class="service-spec">Sin backlash ni engranes</div>
+        <div class="service-spec">Feedback directo e instantáneo</div>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02 — Pedales</div>
+      <span class="service-icon">🦶</span>
+      <h3>Célula de carga</h3>
+      <p>Los pedales hidráulicos o de célula de carga miden la fuerza aplicada, no la posición. Frenar correctamente requiere técnica y consistencia, igual que en un coche real.</p>
+      <div class="service-specs">
+        <div class="service-spec">Freno de célula de carga</div>
+        <div class="service-spec">Acelerador progresivo</div>
+        <div class="service-spec">Embrague de carrera</div>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03 — Cockpit</div>
+      <span class="service-icon">🖥️</span>
+      <h3>Triple monitor</h3>
+      <p>Estructura de aluminio, triple pantalla que cubre el campo visual periférico y H-shifter de palanca. El conjunto que hace que el cerebro deje de notar la diferencia con el asfalto real.</p>
+      <div class="service-specs">
+        <div class="service-spec">Triple pantalla envolvente</div>
+        <div class="service-spec">H-shifter de palanca</div>
+        <div class="service-spec">Cockpit de perfil de aluminio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFAS -->
+<section class="simracing" id="tarifas" style="background:var(--c-carbon);">
+  <div class="sim-layout">
+    <div>
+      <div class="section-tag reveal">Tarifas</div>
+      <h2 class="reveal">Elige tu<br><em>sesión</em></h2>
+      <div class="sim-features reveal">
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Sesión de iniciación</h4>
+            <p>¿Primera vez al volante? Te ayudamos a configurar las ayudas, te explicamos la técnica básica y elegimos el circuito más fácil para empezar bien.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Sesión libre</h4>
+            <p>Elige el coche, el circuito y el tiempo de sesión. Modo libre para rodar, mejorar tu tiempo y experimentar con la configuración del coche.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Duelo 1v1</h4>
+            <p>Los dos simuladores enfrentados. Mismo coche, mismo circuito, a ver quién marca el mejor tiempo. El formato más emocionante de APEX.</p>
+          </div>
+        </div>
+        <div class="sim-feature">
+          <div class="sim-feature-num">→</div>
+          <div class="sim-feature-content">
+            <h4>Ligas y torneos</h4>
+            <p>Campeonatos mensuales con clasificaciones, premios y retransmisión en sala. También organizamos torneos privados para grupos y empresas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div style="border:1px solid var(--c-steel);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:2fr 1fr;padding:1rem 1.5rem;background:var(--c-steel);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--c-slate);">
+          <span>Modalidad</span>
+          <span style="text-align:right">Precio</span>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;padding:1.4rem 1.5rem;border-bottom:1px solid var(--c-steel);">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-light);">Sesión 30 min</div>
+            <div style="font-size:0.85rem;color:var(--c-slate);margin-top:0.2rem;">Un simulador · circuito libre</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-red);text-align:right;align-self:center;">15€</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;padding:1.4rem 1.5rem;border-bottom:1px solid var(--c-steel);">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-light);">Sesión 1 hora</div>
+            <div style="font-size:0.85rem;color:var(--c-slate);margin-top:0.2rem;">Un simulador · circuito libre</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-red);text-align:right;align-self:center;">25€</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;padding:1.4rem 1.5rem;border-bottom:1px solid var(--c-steel);">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-light);">Duelo 1v1</div>
+            <div style="font-size:0.85rem;color:var(--c-slate);margin-top:0.2rem;">45 min · dos simuladores enfrentados</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-red);text-align:right;align-self:center;">35€</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;padding:1.4rem 1.5rem;">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-light);">Pack tutor</div>
+            <div style="font-size:0.85rem;color:var(--c-slate);margin-top:0.2rem;">1h con instructor · telemetría analizada</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-red);text-align:right;align-self:center;">45€</div>
+        </div>
+      </div>
+      <p style="font-family:var(--font-mono);font-size:0.56rem;color:var(--c-fog);letter-spacing:0.1em;text-transform:uppercase;margin-top:1rem;">Precios orientativos · Pueden ajustarse antes de la apertura</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Al volante,<br><em>ahora</em></h2>
+  <p>Reserva tu sesión de simracing y lleva tu conducción al siguiente nivel.</p>
+  <a href="reservar.html?tipo=simracing" class="btn-light" data-sound="descubre-sound">Reservar sesión ↗</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-cols">
+    <div class="footer-brand">
+      <div class="footer-logo">APEX<span>.</span>GR</div>
+      <p class="footer-tagline">Simracing profesional, gaming de alta gama y maker space en el centro de Granada.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Explora</h5>
+      <a href="index.html">Inicio</a>
+      <a href="simracing.html">Simracing</a>
+      <a href="gaming.html">Gaming</a>
+      <a href="cumpleanos.html">Cumpleaños</a>
+      <a href="empresas.html">Empresas</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h5>Reservas</h5>
+      <a href="reservar.html">Reservar plaza</a>
+      <a href="mailto:hola@apexgranada.es">hola@apexgranada.es</a>
+      <a href="tel:+34000000000">+34 000 000 000</a>
+    </div>
+    <div class="footer-col">
+      <h5>Síguenos</h5>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Discord</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 APEX Granada · Todos los derechos reservados</p>
+    <div class="footer-legal">
+      <a href="#">Aviso legal</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<audio id="descubre-sound" src="reservar.mp3" preload="auto"></audio>
+<script src="assets/site.js"></script>
+</body>
+</html>

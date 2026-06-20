@@ -97,7 +97,7 @@ nav {
 .nav-logo span { color: var(--c-red); }
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 1.5rem;
   list-style: none;
   align-items: center;
 }
@@ -1226,7 +1226,7 @@ h3 {
     transition: max-height 0.35s ease;
     align-items: stretch;
   }
-  .nav.open .nav-links { max-height: 420px; }
+  .nav.open .nav-links { max-height: 560px; }
   .nav-links li { width: 100%; }
   .nav-links a {
     display: block;

@@ -44,7 +44,7 @@
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursor-ring');
     if (cursor && ring) {
-      let mx = 0, my = 0, rx = 0, ry = 0;
+      let mx = -200, my = -200, rx = -200, ry = -200;
       document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
       (function animateCursor() {
         cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
@@ -136,7 +136,7 @@
       e.preventDefault();
       const action = form.getAttribute('action') || '';
       // Sin endpoint configurado todavía → abrir cliente de correo
-      if (!action || action.indexOf('formspree.io') === -1 || action.indexOf('your_form_id') !== -1) {
+      if (!action || action.indexOf('your_form_id') !== -1) {
         showStatus('ok', 'Abriendo tu cliente de correo para enviar la solicitud…');
         mailtoFallback();
         return;

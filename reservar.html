@@ -29,11 +29,12 @@
   </button>
   <ul class="nav-links" id="nav-links">
     <li><a href="index.html">Inicio</a></li>
-    <li><a href="centros.html">El centro</a></li>
+    <li><a href="simracing.html">Simracing</a></li>
+    <li><a href="gaming.html">Gaming</a></li>
     <li><a href="cumpleanos.html">Cumpleaños</a></li>
     <li><a href="empresas.html">Empresas</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="reservar.html" class="nav-cta">Reservar plaza</a></li>
+    <li><a href="centros.html#ubicacion">Mapa</a></li>
+    <li><a href="reservar.html" class="nav-cta" data-sound="descubre-sound">Reservar plaza</a></li>
   </ul>
 </nav>
 
@@ -56,7 +57,9 @@
       Mientras no esté configurado, el botón abre el cliente de correo del usuario
       con los datos rellenados (fallback automático en assets/site.js).
     -->
-    <form id="reserva-form" action="https://formspree.io/f/your_form_id" method="POST" data-email="hola@apexgranada.es">
+    <form id="reserva-form" action="https://formsubmit.co/ajax/victor1242003@gmail.com" method="POST" data-email="victor1242003@gmail.com">
+      <input type="hidden" name="_subject" value="Nueva reserva · APEX Granada">
+      <input type="hidden" name="_captcha" value="false">
       <div class="form-row">
         <div class="form-field">
           <label for="f-nombre">Nombre y apellidos</label>
@@ -163,6 +166,7 @@
   </div>
 </footer>
 
+<audio id="descubre-sound" src="reservar.mp3" preload="auto"></audio>
 <script src="assets/site.js"></script>
 </body>
 </html>
