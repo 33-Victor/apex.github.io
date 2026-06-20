@@ -91,12 +91,33 @@
   });
 
   // ── SONIDO EN CTA (data-sound="id-del-audio") ───────────
+  // El sonido suena al pulsar y la página continúa con el audio reproduciéndose
+  // en la pestaña destino (se retoma tras la navegación vía sessionStorage).
   document.querySelectorAll('[data-sound]').forEach((el) => {
     el.addEventListener('click', () => {
       const audio = document.getElementById(el.dataset.sound);
-      if (audio) { audio.currentTime = 0; audio.play().catch(() => {}); }
+      if (!audio) return;
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+      const href = el.getAttribute('href');
+      const navigates =
+        el.tagName === 'A' && href && href.charAt(0) !== '#' && !el.target;
+      // Si navega, dejamos una marca para retomar el sonido en la página destino
+      if (navigates) {
+        try { sessionStorage.setItem('apex-sound', el.dataset.sound); } catch (_) {}
+      }
     });
   });
+
+  // Al cargar una página, si venimos de un clic con sonido, lo retomamos
+  try {
+    const pending = sessionStorage.getItem('apex-sound');
+    if (pending) {
+      sessionStorage.removeItem('apex-sound');
+      const audio = document.getElementById(pending);
+      if (audio) { audio.currentTime = 0; audio.play().catch(() => {}); }
+    }
+  } catch (_) {}
 
   // ── FORMULARIO DE RESERVA (FormSubmit POST nativo + fallback mailto) ─
   const form = document.getElementById('reserva-form');

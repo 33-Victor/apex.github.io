@@ -28,7 +28,10 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--c-void);
+  background:
+    linear-gradient(rgba(9,9,9,0.78), rgba(9,9,9,0.78)),
+    url('../imagen_fondo.png') center center / cover no-repeat fixed;
+  background-color: var(--c-void);
   color: var(--c-light);
   font-family: var(--font-body);
   font-size: 18px;
